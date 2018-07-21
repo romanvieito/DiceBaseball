@@ -13,13 +13,14 @@ class Index extends React.Component {
 
   rollDice = event => {
     event.preventDefault();
-    const x = 4;
-    this.addNewDiceNumber(x);
+    const randomNum1 = Math.ceil(Math.random() * 6);
+    const randomNum2 = Math.ceil(Math.random() * 6);
+    this.addNewDiceNumber(randomNum1, randomNum2);
   }
 
-  addNewDiceNumber = numberDice => {
+  addNewDiceNumber = (numberDice1, numberDice2) => {
     const historyDices = { ...this.state.historyDices };
-    historyDices[`dices${Date.now()}`] = numberDice;
+    historyDices[`dices${Date.now()}`] = [numberDice1, numberDice2];
     this.setState({ historyDices });
   };
 
@@ -31,10 +32,9 @@ class Index extends React.Component {
             <HistoryRender
               key={key}
               index={key}
-              details={{ key: this.state.historyDices[key] }}
+              details={{ numbers: this.state.historyDices[key] }}
             />
           ))}
-          <li></li>
         </ul>
         <form className="xxx" onSubmit={this.rollDice}>
           <button type="submit">Roll dices→</button>
