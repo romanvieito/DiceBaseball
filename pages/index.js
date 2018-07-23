@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import HistoryRender from "../components/HistoryRender"
 import Dices from "../components/Dices"
+import Bases from "../components/Bases"
 
 class Index extends React.Component {
 
@@ -39,9 +40,10 @@ class Index extends React.Component {
 
   render() {
     return (
-      <>
+      <React.Fragment>
         <button onClick={this.rollDice}>Roll dices→</button>
         <Dices valueDice1={this.state.dice1} valueDice2={this.state.dice2}/>
+        <Bases bases={[true, false, true]}/>
         <ul>
           {Object.keys(this.state.historyDices).map(key => (
             <HistoryRender
@@ -51,7 +53,10 @@ class Index extends React.Component {
             />
           ))}
         </ul>
-      </>
+        <style jsx>{`
+         
+        `}</style>
+      </React.Fragment>
     );
   }
 }
