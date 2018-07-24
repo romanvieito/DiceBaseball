@@ -3,15 +3,27 @@ import PropTypes from "prop-types";
 import HistoryRender from "../components/HistoryRender";
 import Dices from "../components/Dices";
 import Bases from "../components/Bases";
-import {drawBases} from "../helpers/batting";
+import { drawBases } from "../helpers/batting";
 
 class Index extends React.Component {
 
   state = {
     historyDices: {},
-    bases: [ false, false, false],
+    score: {
+      visitor: {
+        runs: [],
+        hits: 0
+      },
+      home: {
+        runs: [],
+        hits: 0
+      },
+    },
+    outs: 0,
+    bases: [false, false, false],
     dice1: 1,
     dice2: 1,
+    homeBatting: false,
   };
 
   rollDice = event => {
@@ -19,7 +31,7 @@ class Index extends React.Component {
     const randomNum1 = Math.ceil(Math.random() * 6);
     const randomNum2 = Math.ceil(Math.random() * 6);
     this.addNewDiceNumberToHistory(randomNum1, randomNum2);
-    
+
     let dice1 = { ...this.state.dice1 };
     let dice2 = { ...this.state.dice2 };
     dice1 = randomNum1;
@@ -42,8 +54,8 @@ class Index extends React.Component {
     return (
       <React.Fragment>
         <button onClick={this.rollDice}>Roll dices→</button>
-        <Dices valueDice1={this.state.dice1} valueDice2={this.state.dice2}/>
-        <Bases bases={this.state.bases}/>
+        <Dices valueDice1={this.state.dice1} valueDice2={this.state.dice2} />
+        <Bases bases={this.state.bases} />
         <ul>
           {Object.keys(this.state.historyDices).map(key => (
             <HistoryRender
