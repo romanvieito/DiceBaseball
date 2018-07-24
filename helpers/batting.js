@@ -7,22 +7,17 @@ export function hit3B() {
 }
 
 export function hit2B(pbasesResult) {
-  // const basesCopy = Object.assign({}, pbasesResult);
+  const basesCopy = [...pbasesResult];
   const result = [false, true, false];
-  // result.third = basesCopy.first;
-  // result.second = true;
-  // result.first = false;
-
+  result[2] = basesCopy[0];
   return result;
 }
 
 export function hit1B(pbasesResult) {
-  // const basesCopy = [...pbasesResult];
+  const basesCopy = [...pbasesResult];
   const result = [true, false, false];
-  // result.third = basesCopy.second;
-  // result.second = basesCopy.first;
-  // result.first = true;
-
+  result[2] = basesCopy[1];
+  result[1] = basesCopy[0];
   return result;
 }
 
