@@ -45,32 +45,41 @@ class Index extends React.Component {
     this.setState({ bases: drawBases(dicenumber, this.state.bases) });
     //Adding Outs
     if (dicenumber === 1) {
-      this.addOuts();
+      this.addOneOuts();
     }
     if (dicenumber === 2) {
-      this.addOuts();
-      //Just double play if outs weren't 2 and there at least one runner on base
-      if (this.state.outs !== 0 && this.existRunnerOnBase()) {
-        this.addOuts();
-      }
+      this.showUpNumber2();
     }
   };
+
+  //Execute when dice number is 2
+  showUpNumber2 = () => {
+    if (!this.existRunnerOnBase()) {
+      this.addOneOuts();
+    } else
+    this.addTwoOuts();
+  }
 
   //Find if exist runner on base and delete the more advanced
   existRunnerOnBase = () => {
     const bases = [...this.state.bases];
-    //If exist runner get his base
-    console.log(bases);
-    const moreAdvanceRunner = bases.lastIndexOf(true);
-    if (moreAdvanceRunner > 0) {
-      //delete more "danger" runner and return true
-      bases[moreAdvanceRunner] = false;
-      this.setState({ bases });
-      return true;
-    }
     //Return false if bases are clean
-    return false;
-  }
+    if (bases.lastIndexOf(true) === -1) return false;
+
+    return true;
+  };
+
+  //Delete more advance runner from bases
+  deleteAdvanceRunner = () => {
+    if (!this.existRunnerOnBase) return false;
+
+    const bases = [...this.state.bases];
+    //If exist runner get his base
+    const moreAdvanceRunner = bases.lastIndexOf(true);
+    //delete more "danger" runner and return true (set to false pos in array)
+    bases[moreAdvanceRunner] = false;
+    this.setState({ bases });
+  };
 
   //Keep a history of every turn at bat
   addNewDiceNumberToHistory = (numberDice1, numberDice2) => {
@@ -79,17 +88,38 @@ class Index extends React.Component {
     this.setState({ historyDices });
   };
 
-  addOuts = () => {
+  //Initializing state for new inning
+  setNewInning = () => {
+    this.setState({ bases: [false, false, false] });
+    this.setState({ outs: 0 });
+    this.setState({ homeBatting: !this.state.homeBatting });
+  };
+
+  //Add one out to state
+  addOneOuts = () => {
     let outs = this.state.outs;
-    let homeBatting = this.state.homeBatting;
-    //If 2 outs switch homeBatting flag and outs = 0
+    //If 2 outs switch homeBatting flag, clean bases, and outs = 0
     if (outs === 2) {
-      this.setState({ homeBatting: !this.state.homeBatting });
-      this.setState({ outs: 0 });
+      this.setNewInning();
     } else {
-      // this.setState({ outs: outs++ });
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         outs: prevState.outs + 1
+      }));
+    }
+  };
+
+  //Add two out to state
+  addTwoOuts = () => {
+    if (!this.existRunnerOnBase()) return;
+
+    let outs = this.state.outs;
+    //If 1 or 2 outs switch homeBatting flag, clean bases, and outs = 0
+    if (outs === 2 || outs === 1) {
+      this.setNewInning();
+    } else {
+      this.deleteAdvanceRunner();
+      this.setState(() => ({
+        outs: 2
       }));
     }
   };
