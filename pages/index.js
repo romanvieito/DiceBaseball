@@ -23,7 +23,7 @@ class Index extends React.Component {
     bases: [false, false, false],
     dice1: 1,
     dice2: 1,
-    homeBatting: false
+    isHomeAtBat: false
   };
 
   //For every turn at bat (btn click)
@@ -123,16 +123,28 @@ class Index extends React.Component {
 
   //Initializing state for new inning
   setNewInning = () => {
+    const { runs, isHomeAtBat } = this.state;
+    this.addRunsToScore(runs, isHomeAtBat);
+
     this.setState({ bases: [false, false, false] });
     this.setState({ outs: 0 });
     this.setState({ runs: 0 });
-    this.setState({ homeBatting: !this.state.homeBatting });
+    this.setState({ isHomeAtBat: !this.state.isHomeAtBat });
   };
+
+  addRunsToScore = (runs, isHomeAtBat) => {
+    let score = { ...this.state.score };
+    if (isHomeAtBat) {
+      score.home.runs.push(runs);
+    } else
+      score.visitor.runs.push(runs);
+    this.setState({ score });
+  }
 
   //Add one out to state
   addOneOuts = () => {
     let outs = this.state.outs;
-    //If 2 outs switch homeBatting flag, clean bases, and outs = 0
+    //If 2 outs switch isHomeAtBat flag, clean bases, and outs = 0
     if (outs === 2) {
       this.setNewInning();
     } else {
@@ -147,7 +159,7 @@ class Index extends React.Component {
     if (!this.existRunnerOnBase()) return;
 
     let outs = this.state.outs;
-    //If 1 or 2 outs switch homeBatting flag, clean bases, and outs = 0
+    //If 1 or 2 outs switch isHomeAtBat flag, clean bases, and outs = 0
     if (outs === 2 || outs === 1) {
       this.setNewInning();
     } else {
@@ -166,11 +178,11 @@ class Index extends React.Component {
   };
 
   render() {
-    const homeBatting = this.state.homeBatting;
+    const isHomeAtBat = this.state.isHomeAtBat;
     return (
       <React.Fragment>
         <div>
-          At bat <b>{homeBatting ? "HC" : "Visitor"}</b>.
+          At bat <b>{isHomeAtBat ? "HomeClub" : "Visitor"}</b>.
         </div>
         <button onClick={this.rollDice}>Roll dices→</button>
         <Dices valueDice1={this.state.dice1} valueDice2={this.state.dice2} />
