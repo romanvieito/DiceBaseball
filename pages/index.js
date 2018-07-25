@@ -192,7 +192,7 @@ class Index extends React.Component {
   };
 
   render() {
-    const isHomeAtBat = this.state.isHomeAtBat;
+    const {isHomeAtBat, score} = this.state;
     return (
       <React.Fragment>
         <div className="wrapper">
@@ -203,7 +203,7 @@ class Index extends React.Component {
             </div>
           </header>
           <article className="main">
-            <ScoreTable />
+            <ScoreTable {...score}/>
             <div onClick={this.rollDice} style={{'cursor': 'pointer'}}>
               <Dices
                 valueDice1={this.state.dice1}
@@ -212,8 +212,8 @@ class Index extends React.Component {
             </div>
             <Bases bases={this.state.bases} />
           </article>
-          <aside className="aside aside-1">Aside 1</aside>
-          <aside className="aside aside-2">Aside 2</aside>
+          <aside className="aside aside-1">Visitor</aside>
+          <aside className="aside aside-2">Home Club</aside>
           <footer className="footer">
             <ul style={{'maxWidth':'10%'}}>
               {Object.keys(this.state.historyDices).map(key => (

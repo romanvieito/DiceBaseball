@@ -1,50 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { totalmem } from "os";
 
 class ScoreTable extends React.Component {
+  static PropTypes = {
+    visitor: PropTypes.object,
+    home: PropTypes.object
+  };
   render() {
+    const { visitor, home } = this.props;
+
     return (
       <React.Fragment>
         <div className="wrapper">
           <table className="table">
             <thead>
               <tr className="green-color">
-                <th scope="col">FINAL</th>
-                <th scope="col">1</th>
-                <th scope="col">2</th>
-                <th scope="col">3</th>
-                <th scope="col">4</th>
-                <th scope="col">5</th>
-                <th scope="col">6</th>
-                <th scope="col">7</th>
-                <th scope="col">8</th>
-                <th scope="col">9</th>
+                <th scope="col">SCORE</th>
+                {[1,2,3,4,5,6,7,8,9].map(i => <th scope="col" key={i}>{i}</th>)}
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">Visitor</th>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                {visitor.runs.map(value => <td scope="col" key={value}>{value}</td>)}
               </tr>
               <tr>
-                <th scope="row">Host</th>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <th scope="row">Home</th>
+                {home.runs.map(value => <td scope="col" key={value}>{value}</td>)}
               </tr>
             </tbody>
           </table>
@@ -58,13 +41,13 @@ class ScoreTable extends React.Component {
             </thead>
             <tbody>
               <tr>
-                <th scope="row">0</th>
-                <td>0</td>
+                <th scope="row">{visitor.runs.reduce((total, item) => total+= item, 0)}</th>
+                <td>{visitor.hitsTotal}</td>
                 <td>0</td>
               </tr>
               <tr>
-                <th scope="row">0</th>
-                <td>0</td>
+                <th scope="row">{home.runs.reduce((total, item) => total+= item, 0)}</th>
+                <td>{home.hitsTotal}</td>
                 <td>0</td>
               </tr>
             </tbody>
