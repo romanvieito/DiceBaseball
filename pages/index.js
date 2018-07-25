@@ -27,15 +27,19 @@ class Index extends React.Component {
 
   //For every turn at bat (btn click)
   rollDice = event => {
-    event.preventDefault();
-    const randomNum1 = Math.ceil(Math.random() * 6);
-    const randomNum2 = Math.ceil(Math.random() * 6);
-    this.addNewDiceNumberToHistory(randomNum1, randomNum2);
+    //Random dices numbers
+    let dice1 = Math.ceil(Math.random() * 6);
+    let dice2 = Math.ceil(Math.random() * 6);
+
+    this.hittingResolve(dice1, dice2);
+  };
+
+  //Getting the right dice, setting (draw)bases states and adding outs
+  hittingResolve = (pdice1, pdice2) => {
+    const dice1 = pdice1;
+    const dice2 = pdice2;
+    if(!dice1 || !dice2) return;
     //Update our state object (dice1,dice2)
-    let dice1 = this.state.dice1;
-    let dice2 = this.state.dice2;
-    dice1 = randomNum1;
-    dice2 = randomNum2;
     this.setState({ dice1 });
     this.setState({ dice2 });
     //Get just the right dice
@@ -43,6 +47,8 @@ class Index extends React.Component {
     if (dicenumber > dice2) dicenumber = dice2;
     //Draw Bases
     this.setState({ bases: drawBases(dicenumber, this.state.bases) });
+    //Adding dices numbers to history
+    this.addNewDiceNumberToHistory(dice1, dice2);
     //Adding Outs
     if (dicenumber === 1) {
       this.addOneOuts();
@@ -50,7 +56,7 @@ class Index extends React.Component {
     if (dicenumber === 2) {
       this.showUpNumber2();
     }
-  };
+  }
 
   //Find if exist runner on base and delete the more advanced
   existRunnerOnBase = () => {
