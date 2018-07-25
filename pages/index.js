@@ -190,35 +190,49 @@ class Index extends React.Component {
       this.addOneOuts();
     } else this.addTwoOuts();
   };
-  
-  // //Batting dict (mapping)
-  // batDictionary = (diceNum) => {
-  //   const batDictionary = {};
-  //   return batDictionary;
-  // };
+
+  //Batting dict (mapping)
+  batDictionary = diceNum => {
+    const batDictionary = {
+      1: "OUT",
+      2: "OUT",
+      3: "HIT",
+      4: "DOUBLE",
+      5: "TRIPLE",
+      6: "HOME RUN"
+    };
+    return batDictionary[diceNum];
+  };
 
   render() {
     const { isHomeAtBat, score, historyDices } = this.state;
+    const lastDices =
+      historyDices[
+        Object.keys(historyDices)[Object.keys(historyDices).length - 1]
+      ] || [];
     return (
       <React.Fragment>
         <div className="wrapper">
           <header className="header">
             <h4>BaseDice</h4>
             <div>
-              At bat <b>{isHomeAtBat ? "HomeClub" : "Visitor"}</b>.
+              At bat <b>{isHomeAtBat ? "Home Club" : "Visitor"}</b>.
             </div>
           </header>
-
           <article className="main">
             <div className="board">
               <ul className="inning-list">
                 {Object.keys(historyDices).map((value, i) => (
-                  <li>Hitter{i+1} -> {historyDices[value][2]}</li>
+                  <li key={i}>
+                    Hitter{i + 1} ->{" "}
+                    {this.batDictionary(historyDices[value][2])}
+                  </li>
                 ))}
               </ul>
-              <span className="hit-label">HIT!!!</span>
+              <span className="hit-label">
+                {this.batDictionary(lastDices[lastDices.length - 1])}
+              </span>
             </div>
-
             <ScoreTable {...score} />
           </article>
 

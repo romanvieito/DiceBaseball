@@ -1,11 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import { totalmem } from "os";
 
 class ScoreTable extends React.Component {
-  static PropTypes = {
-    visitor: PropTypes.object,
-    home: PropTypes.object
+  static propTypes = {
+    visitor: propTypes.object,
+    home: propTypes.object
   };
   render() {
     const { visitor, home } = this.props;
@@ -17,17 +17,17 @@ class ScoreTable extends React.Component {
             <thead>
               <tr className="green-color">
                 <th scope="col">SCORE</th>
-                {[1,2,3,4,5,6,7,8,9].map(i => <th scope="col" key={i}>{i}</th>)}
+                {[1,2,3,4,5,6,7,8,9].map((v,i) => <th scope="col" key={i}>{v}</th>)}
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">Visitor</th>
-                {visitor.runs.map(value => <td scope="col" key={value}>{value}</td>)}
+                {visitor.runs.map((value, i) => <td scope="col" key={i}>{value}</td>)}
               </tr>
               <tr>
                 <th scope="row">Home</th>
-                {home.runs.map(value => <td scope="col" key={value}>{value}</td>)}
+                {home.runs.map((value, i) => <td scope="col" key={i}>{value}</td>)}
               </tr>
             </tbody>
           </table>

@@ -54,6 +54,5 @@ export function drawBases(dicenumber, bases) {
   } else if (dicenumber === 3) {
     result = hit1B(basesResult);
   }
-  console.log(result);
   return result;
 }
