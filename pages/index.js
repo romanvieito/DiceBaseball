@@ -11,11 +11,11 @@ class Index extends React.Component {
     score: {
       visitor: {
         runs: [],
-        hits: 0
+        hitsTotal: 0
       },
       home: {
         runs: [],
-        hits: 0
+        hitsTotal: 0
       }
     },
     outs: 0,
@@ -44,6 +44,20 @@ class Index extends React.Component {
     this.addNewDiceNumberToHistory(dice1, dice2);
     //Adding Outs and Runs to state
     this.addingOutsAndRuns(dicenumber, bases);
+    this.addingHits(dicenumber);
+  };
+
+  //Adding hits to the score
+  addingHits = diceNumber => {
+    if (diceNumber < 3) return;
+    const isHomeAtBat = this.state.isHomeAtBat;
+    let score = { ...this.state.score };
+
+    if (isHomeAtBat) {
+      score.home.hitsTotal++;
+    } else score.visitor.hitsTotal++;
+
+    this.setState({ score });
   };
 
   //Add runs to score or outs (states)
@@ -132,14 +146,14 @@ class Index extends React.Component {
     this.setState({ isHomeAtBat: !this.state.isHomeAtBat });
   };
 
+  //Update score state at the end of the inning
   addRunsToScore = (runs, isHomeAtBat) => {
     let score = { ...this.state.score };
     if (isHomeAtBat) {
       score.home.runs.push(runs);
-    } else
-      score.visitor.runs.push(runs);
+    } else score.visitor.runs.push(runs);
     this.setState({ score });
-  }
+  };
 
   //Add one out to state
   addOneOuts = () => {
