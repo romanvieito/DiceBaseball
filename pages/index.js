@@ -204,7 +204,7 @@ class Index extends React.Component {
           </header>
           <article className="main">
             <ScoreTable />
-            <div onClick={this.rollDice}>
+            <div onClick={this.rollDice} style={{'cursor': 'pointer'}}>
               <Dices
                 valueDice1={this.state.dice1}
                 valueDice2={this.state.dice2}
@@ -215,7 +215,7 @@ class Index extends React.Component {
           <aside className="aside aside-1">Aside 1</aside>
           <aside className="aside aside-2">Aside 2</aside>
           <footer className="footer">
-            <ul>
+            <ul style={{'maxWidth':'10%'}}>
               {Object.keys(this.state.historyDices).map(key => (
                 <HistoryRender
                   key={key}
