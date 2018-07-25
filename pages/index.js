@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import HistoryRender from "../components/HistoryRender";
 import Dices from "../components/Dices";
 import Bases from "../components/Bases";
+import ScoreTable from "../components/ScoreTable";
 import { drawBases } from "../helpers/batting";
 
 class Index extends React.Component {
@@ -195,22 +195,71 @@ class Index extends React.Component {
     const isHomeAtBat = this.state.isHomeAtBat;
     return (
       <React.Fragment>
-        <div>
-          At bat <b>{isHomeAtBat ? "HomeClub" : "Visitor"}</b>.
+        <div className="wrapper">
+          <header className="header">
+            <h4>BaseDice</h4>
+            <div>
+              At bat <b>{isHomeAtBat ? "HomeClub" : "Visitor"}</b>.
+            </div>
+          </header>
+          <article className="main">
+            <ScoreTable />
+            <div onClick={this.rollDice}>
+              <Dices
+                valueDice1={this.state.dice1}
+                valueDice2={this.state.dice2}
+              />
+            </div>
+            <Bases bases={this.state.bases} />
+          </article>
+          <aside className="aside aside-1">Aside 1</aside>
+          <aside className="aside aside-2">Aside 2</aside>
+          <footer className="footer">
+            <ul>
+              {Object.keys(this.state.historyDices).map(key => (
+                <HistoryRender
+                  key={key}
+                  index={key}
+                  details={{ numbers: this.state.historyDices[key] }}
+                />
+              ))}
+            </ul>
+          </footer>
         </div>
-        <button onClick={this.rollDice}>Roll dices→</button>
-        <Dices valueDice1={this.state.dice1} valueDice2={this.state.dice2} />
-        <Bases bases={this.state.bases} />
-        <ul>
-          {Object.keys(this.state.historyDices).map(key => (
-            <HistoryRender
-              key={key}
-              index={key}
-              details={{ numbers: this.state.historyDices[key] }}
-            />
-          ))}
-        </ul>
-        <style jsx>{``}</style>
+
+        <style jsx>{`
+          .wrapper {
+            display: flex;
+            flex-flow: row wrap;
+            text-align: center;
+          }
+          .wrapper > * {
+            padding: 10px;
+            flex: 1 100%;
+          }
+          @media all and (min-width: 600px) {
+            .aside {
+              flex: 1 auto !important;
+            }
+          }
+          @media all and (min-width: 800px) {
+            .main {
+              flex: 3 0px !important;
+            }
+            .aside-1 {
+              order: 1 !important;
+            }
+            .main {
+              order: 2 !important;
+            }
+            .aside-2 {
+              order: 3 !important;
+            }
+            .footer {
+              order: 4 !important;
+            }
+          }
+        `}</style>
       </React.Fragment>
     );
   }
