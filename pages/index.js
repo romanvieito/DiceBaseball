@@ -192,7 +192,7 @@ class Index extends React.Component {
   };
 
   render() {
-    const {isHomeAtBat, score} = this.state;
+    const { isHomeAtBat, score } = this.state;
     return (
       <React.Fragment>
         <div className="wrapper">
@@ -203,19 +203,24 @@ class Index extends React.Component {
             </div>
           </header>
           <article className="main">
-            <ScoreTable {...score}/>
-            <div onClick={this.rollDice} style={{'cursor': 'pointer'}}>
+            <div className="board" />
+            <ScoreTable {...score} />
+          </article>
+          <aside className="aside visitor">
+            <h5>Visitor</h5>
+            <Bases bases={this.state.bases} />
+          </aside>
+          <aside className="aside host">
+            <h5>Home Club</h5>
+            <div onClick={this.rollDice} style={{ cursor: "pointer" }}>
               <Dices
                 valueDice1={this.state.dice1}
                 valueDice2={this.state.dice2}
               />
             </div>
-            <Bases bases={this.state.bases} />
-          </article>
-          <aside className="aside aside-1">Visitor</aside>
-          <aside className="aside aside-2">Home Club</aside>
+          </aside>
           <footer className="footer">
-            <ul style={{'maxWidth':'10%'}}>
+            <ul style={{ maxWidth: "10%" }}>
               {Object.keys(this.state.historyDices).map(key => (
                 <HistoryRender
                   key={key}
@@ -233,9 +238,20 @@ class Index extends React.Component {
             flex-flow: row wrap;
             text-align: center;
           }
+          .visitor {
+            text-align: center;
+          }
           .wrapper > * {
             padding: 10px;
             flex: 1 100%;
+          }
+          .board {
+            background-color: black;
+            width: 100%;
+            height: 16em;
+            border-style: solid;
+            border-width: 6px;
+            border-color: white;
           }
           @media all and (min-width: 600px) {
             .aside {
@@ -246,13 +262,13 @@ class Index extends React.Component {
             .main {
               flex: 3 0px !important;
             }
-            .aside-1 {
+            .visitor {
               order: 1 !important;
             }
             .main {
               order: 2 !important;
             }
-            .aside-2 {
+            .host {
               order: 3 !important;
             }
             .footer {
