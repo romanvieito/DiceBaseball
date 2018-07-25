@@ -19,6 +19,7 @@ class Index extends React.Component {
       }
     },
     outs: 0,
+    runs: 0,
     bases: [false, false, false],
     dice1: 1,
     dice2: 1,
@@ -26,19 +27,11 @@ class Index extends React.Component {
   };
 
   //For every turn at bat (btn click)
-  rollDice = event => {
-    //Random dices numbers
-    let dice1 = Math.ceil(Math.random() * 6);
-    let dice2 = Math.ceil(Math.random() * 6);
-
-    this.hittingResolve(dice1, dice2);
-  };
-
   //Getting the right dice, setting (draw)bases states and adding outs
-  hittingResolve = (pdice1, pdice2) => {
-    const dice1 = pdice1;
-    const dice2 = pdice2;
-    if(!dice1 || !dice2) return;
+  rollDice = () => {
+    const dice1 = Math.ceil(Math.random() * 6);
+    const dice2 = Math.ceil(Math.random() * 6);
+    const bases = this.state.bases;
     //Update our state object (dice1,dice2)
     this.setState({ dice1 });
     this.setState({ dice2 });
@@ -46,23 +39,65 @@ class Index extends React.Component {
     let dicenumber = dice1;
     if (dicenumber > dice2) dicenumber = dice2;
     //Draw Bases
-    this.setState({ bases: drawBases(dicenumber, this.state.bases) });
+    this.setState({ bases: drawBases(dicenumber, bases) });
     //Adding dices numbers to history
     this.addNewDiceNumberToHistory(dice1, dice2);
-    //Adding Outs
-    if (dicenumber === 1) {
-      this.addOneOuts();
+    //Adding Outs and Runs to state
+    this.addingOutsAndRuns(dicenumber, bases);
+  };
+
+  //Add runs to score or outs (states)
+  addingOutsAndRuns = (dicenumber, bases) => {
+    switch (dicenumber) {
+      case 1:
+        this.addOneOuts();
+        break;
+      case 2:
+        this.showUpNumber2();
+        break;
+      case 3:
+        if (bases[2] === true) {
+          this.setState(prevState => ({
+            runs: prevState.runs + 1
+          }));
+        }
+        break;
+      case 4:
+        let runs2B = bases.reduce((n, value, i) => {
+          if (i > 0) {
+            return n + (value === true);
+          }
+          return 0;
+        }, 0);
+        this.setState(prevState => ({
+          runs: prevState.runs + runs2B
+        }));
+        break;
+      case 5:
+        const runs3B = bases.reduce((n, value) => {
+          return n + (value === true);
+        }, 0);
+        this.setState(prevState => ({
+          runs: prevState.runs + runs3B
+        }));
+        break;
+      case 6:
+        const runsHR = bases.reduce((n, value) => {
+          return n + (value === true);
+        }, 0);
+        this.setState(prevState => ({
+          runs: prevState.runs + runsHR + 1
+        }));
+        break;
+      default:
+        break;
     }
-    if (dicenumber === 2) {
-      this.showUpNumber2();
-    }
-  }
+  };
 
   //Find if exist runner on base and delete the more advanced
   existRunnerOnBase = () => {
-    const bases = [...this.state.bases];
     //Return false if bases are clean
-    if (bases.lastIndexOf(true) === -1) return false;
+    if (this.state.bases.lastIndexOf(true) === -1) return false;
 
     return true;
   };
@@ -90,6 +125,7 @@ class Index extends React.Component {
   setNewInning = () => {
     this.setState({ bases: [false, false, false] });
     this.setState({ outs: 0 });
+    this.setState({ runs: 0 });
     this.setState({ homeBatting: !this.state.homeBatting });
   };
 
