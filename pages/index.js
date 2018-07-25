@@ -41,7 +41,7 @@ class Index extends React.Component {
     //Draw Bases
     this.setState({ bases: drawBases(dicenumber, bases) });
     //Adding dices numbers to history
-    this.addNewDiceNumberToHistory(dice1, dice2);
+    this.addNewDiceNumberToHistory(dice1, dice2, dicenumber);
     //Adding Outs and Runs to state
     this.addingOutsAndRuns(dicenumber, bases);
     this.addingHits(dicenumber);
@@ -129,9 +129,9 @@ class Index extends React.Component {
   };
 
   //Keep a history of every turn at bat
-  addNewDiceNumberToHistory = (numberDice1, numberDice2) => {
+  addNewDiceNumberToHistory = (numberDice1, numberDice2, winnerDice) => {
     const historyDices = { ...this.state.historyDices };
-    historyDices[`dices${Date.now()}`] = [numberDice1, numberDice2];
+    historyDices[`dices${Date.now()}`] = [numberDice1, numberDice2, winnerDice];
     this.setState({ historyDices });
   };
 
@@ -190,9 +190,15 @@ class Index extends React.Component {
       this.addOneOuts();
     } else this.addTwoOuts();
   };
+  
+  // //Batting dict (mapping)
+  // batDictionary = (diceNum) => {
+  //   const batDictionary = {};
+  //   return batDictionary;
+  // };
 
   render() {
-    const { isHomeAtBat, score } = this.state;
+    const { isHomeAtBat, score, historyDices } = this.state;
     return (
       <React.Fragment>
         <div className="wrapper">
@@ -202,10 +208,20 @@ class Index extends React.Component {
               At bat <b>{isHomeAtBat ? "HomeClub" : "Visitor"}</b>.
             </div>
           </header>
+
           <article className="main">
-            <div className="board" />
+            <div className="board">
+              <ul className="inning-list">
+                {Object.keys(historyDices).map((value, i) => (
+                  <li>Hitter{i+1} -> {historyDices[value][2]}</li>
+                ))}
+              </ul>
+              <span className="hit-label">HIT!!!</span>
+            </div>
+
             <ScoreTable {...score} />
           </article>
+
           <aside className="aside visitor">
             <h5>Visitor</h5>
             <Bases bases={this.state.bases} />
@@ -221,11 +237,11 @@ class Index extends React.Component {
           </aside>
           <footer className="footer">
             <ul style={{ maxWidth: "10%" }}>
-              {Object.keys(this.state.historyDices).map(key => (
+              {Object.keys(historyDices).map(key => (
                 <HistoryRender
                   key={key}
                   index={key}
-                  details={{ numbers: this.state.historyDices[key] }}
+                  details={{ numbers: historyDices[key] }}
                 />
               ))}
             </ul>
@@ -247,11 +263,28 @@ class Index extends React.Component {
           }
           .board {
             background-color: black;
+            color: white;
             width: 100%;
             height: 16em;
             border-style: solid;
             border-width: 6px;
             border-color: white;
+            display: flex;
+            align-items: center;
+          }
+          .inning-list {
+            flex-grow: 1;
+            align-items: flex-start;
+          }
+          .hit-label {
+            flex-grow: 3;
+            font: 65px arial, sans-serif;
+            font-weight: 700;
+          }
+          ul.inning-list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
           }
           @media all and (min-width: 600px) {
             .aside {

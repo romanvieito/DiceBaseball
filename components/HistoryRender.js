@@ -14,7 +14,7 @@ class HistoryRender extends React.Component {
         <h3>
           {numbers.map((data, index) => (
             <span key={index}>
-              {data}{index === 0 ? ' - ' : ''}
+              {data}{index === 1 ? ' - ' : ''}
             </span>
           ))}
         </h3>
