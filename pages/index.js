@@ -52,14 +52,6 @@ class Index extends React.Component {
     }
   };
 
-  //Execute when dice number is 2
-  showUpNumber2 = () => {
-    if (!this.existRunnerOnBase()) {
-      this.addOneOuts();
-    } else
-    this.addTwoOuts();
-  }
-
   //Find if exist runner on base and delete the more advanced
   existRunnerOnBase = () => {
     const bases = [...this.state.bases];
@@ -124,9 +116,20 @@ class Index extends React.Component {
     }
   };
 
+  //Execute when dice number is 2, add (1,2) outs
+  showUpNumber2 = () => {
+    if (!this.existRunnerOnBase()) {
+      this.addOneOuts();
+    } else this.addTwoOuts();
+  };
+
   render() {
+    const homeBatting = this.state.homeBatting;
     return (
       <React.Fragment>
+        <div>
+          At bat <b>{homeBatting ? "HC" : "Visitor"}</b>.
+        </div>
         <button onClick={this.rollDice}>Roll dices→</button>
         <Dices valueDice1={this.state.dice1} valueDice2={this.state.dice2} />
         <Bases bases={this.state.bases} />
