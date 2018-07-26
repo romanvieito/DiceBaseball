@@ -56,3 +56,16 @@ export function drawBases(dicenumber, bases) {
   }
   return result;
 }
+
+  //Batting dict (mapping)
+  export function batDictionary (diceNum) {
+    const batDictionary = {
+      1: "OUT",
+      2: "OUT",
+      3: "HIT",
+      4: "DOUBLE",
+      5: "TRIPLE",
+      6: "HOME RUN"
+    };
+    return batDictionary[diceNum];
+  }

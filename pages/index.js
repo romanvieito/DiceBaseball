@@ -3,7 +3,7 @@ import HistoryRender from "../components/HistoryRender";
 import Dices from "../components/Dices";
 import Bases from "../components/Bases";
 import ScoreTable from "../components/ScoreTable";
-import { drawBases } from "../helpers/batting";
+import { drawBases, batDictionary } from "../helpers/batting";
 
 class Index extends React.Component {
   state = {
@@ -191,19 +191,6 @@ class Index extends React.Component {
     } else this.addTwoOuts();
   };
 
-  //Batting dict (mapping)
-  batDictionary = diceNum => {
-    const batDictionary = {
-      1: "OUT",
-      2: "OUT",
-      3: "HIT",
-      4: "DOUBLE",
-      5: "TRIPLE",
-      6: "HOME RUN"
-    };
-    return batDictionary[diceNum];
-  };
-
   render() {
     const { isHomeAtBat, score, historyDices } = this.state;
     const lastDices =
@@ -225,12 +212,12 @@ class Index extends React.Component {
                 {Object.keys(historyDices).map((value, i) => (
                   <li key={i}>
                     Hitter{i + 1} ->{" "}
-                    {this.batDictionary(historyDices[value][2])}
+                    {batDictionary(historyDices[value][2])}
                   </li>
                 ))}
               </ul> */}
               <span className="hit-label">
-                {this.batDictionary(lastDices[lastDices.length - 1])}
+                {batDictionary(lastDices[lastDices.length - 1])}
               </span>
             </div>
             <ScoreTable {...score} />
