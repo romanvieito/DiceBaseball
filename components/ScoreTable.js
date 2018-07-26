@@ -56,6 +56,7 @@ class ScoreTable extends React.Component {
         <style jsx>{`
           .wrapper {
             display: flex;
+            justify-content: center;
           }
           .green-color {
             background-color: #cccccc;

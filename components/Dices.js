@@ -13,89 +13,94 @@ class Dices extends React.Component {
     valueDice2: propTypes.number
   };
   render() {
+    const { valueDice1, valueDice2 } = this.props;
     return (
       <>
         <div className="dices">
           <div className="first-dice">
-            {this.props.valueDice1 === 1 ? (
+            {valueDice1 === 1 ? (
               <NormalImg
                 src={DiceImg1}
-                alt={this.props.valueDice1.toString()}
+                alt={valueDice1.toString()}
               />
             ) : null}
-            {this.props.valueDice1 === 2 ? (
+            {valueDice1 === 2 ? (
               <NormalImg
                 src={DiceImg2}
-                alt={this.props.valueDice1.toString()}
+                alt={valueDice1.toString()}
               />
             ) : null}
-            {this.props.valueDice1 === 3 ? (
+            {valueDice1 === 3 ? (
               <NormalImg
                 src={DiceImg3}
-                alt={this.props.valueDice1.toString()}
+                alt={valueDice1.toString()}
               />
             ) : null}
-            {this.props.valueDice1 === 4 ? (
+            {valueDice1 === 4 ? (
               <NormalImg
                 src={DiceImg4}
-                alt={this.props.valueDice1.toString()}
+                alt={valueDice1.toString()}
               />
             ) : null}
-            {this.props.valueDice1 === 5 ? (
+            {valueDice1 === 5 ? (
               <NormalImg
                 src={DiceImg5}
-                alt={this.props.valueDice1.toString()}
+                alt={valueDice1.toString()}
               />
             ) : null}
-            {this.props.valueDice1 === 6 ? (
+            {valueDice1 === 6 ? (
               <NormalImg
                 src={DiceImg6}
-                alt={this.props.valueDice1.toString()}
+                alt={valueDice1.toString()}
               />
             ) : null}
           </div>
-          <div className="second-dice ml-2">
-            {this.props.valueDice2 === 1 ? (
+          <div className="second-dice ml-1">
+            {valueDice2 === 1 ? (
               <NormalImg
                 src={DiceImg1}
-                alt={this.props.valueDice2.toString()}
+                alt={valueDice2.toString()}
               />
             ) : null}
-            {this.props.valueDice2 === 2 ? (
+            {valueDice2 === 2 ? (
               <NormalImg
                 src={DiceImg2}
-                alt={this.props.valueDice2.toString()}
+                alt={valueDice2.toString()}
               />
             ) : null}
-            {this.props.valueDice2 === 3 ? (
+            {valueDice2 === 3 ? (
               <NormalImg
                 src={DiceImg3}
-                alt={this.props.valueDice2.toString()}
+                alt={valueDice2.toString()}
               />
             ) : null}
-            {this.props.valueDice2 === 4 ? (
+            {valueDice2 === 4 ? (
               <NormalImg
                 src={DiceImg4}
-                alt={this.props.valueDice2.toString()}
+                alt={valueDice2.toString()}
               />
             ) : null}
-            {this.props.valueDice2 === 5 ? (
+            {valueDice2 === 5 ? (
               <NormalImg
                 src={DiceImg5}
-                alt={this.props.valueDice2.toString()}
+                alt={valueDice2.toString()}
               />
             ) : null}
-            {this.props.valueDice2 === 6 ? (
+            {valueDice2 === 6 ? (
               <NormalImg
                 src={DiceImg6}
-                alt={this.props.valueDice2.toString()}
+                alt={valueDice2.toString()}
               />
             ) : null}
           </div>
           <style jsx>{`
             .dices {
               display: flex;
+              justify-content: center;
               padding: 1em;
+            }
+            .ml-1 {
+              margin-left: 1em;
             }
           `}</style>
         </div>

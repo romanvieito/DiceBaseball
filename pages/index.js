@@ -221,24 +221,25 @@ class Index extends React.Component {
           </header>
           <article className="main">
             <div className="board">
-              <ul className="inning-list">
+              {/* <ul className="inning-list">
                 {Object.keys(historyDices).map((value, i) => (
                   <li key={i}>
                     Hitter{i + 1} ->{" "}
                     {this.batDictionary(historyDices[value][2])}
                   </li>
                 ))}
-              </ul>
+              </ul> */}
               <span className="hit-label">
                 {this.batDictionary(lastDices[lastDices.length - 1])}
               </span>
             </div>
             <ScoreTable {...score} />
           </article>
-
           <aside className="aside visitor">
             <h5>Visitor</h5>
-            <Bases bases={this.state.bases} />
+            <div className="basic-score">
+              <Bases bases={this.state.bases} />
+            </div>
           </aside>
           <aside className="aside host">
             <h5>Home Club</h5>
@@ -250,7 +251,7 @@ class Index extends React.Component {
             </div>
           </aside>
           <footer className="footer">
-            <ul style={{ maxWidth: "10%" }}>
+            {/* <ul style={{ maxWidth: "10%" }}>
               {Object.keys(historyDices).map(key => (
                 <HistoryRender
                   key={key}
@@ -258,11 +259,13 @@ class Index extends React.Component {
                   details={{ numbers: historyDices[key] }}
                 />
               ))}
-            </ul>
+            </ul> */}
           </footer>
         </div>
 
         <style jsx>{`
+          .basic-score {
+          }
           .wrapper {
             display: flex;
             flex-flow: row wrap;
