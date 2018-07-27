@@ -9,19 +9,21 @@ class ScoreAndBases extends React.Component {
   render() {
     const { bases } = this.props;
 
-    const teamAndScore = props => (
-      <div>
-        <div className="flex space-between">
-          <span>{props.team}</span>
-          <span>{props.runs}</span>
+    function teamAndScore(props) {
+      return (
+        <div>
+          <div className="flex space-between">
+            <span>{props.team}</span>
+            <span>{props.runs}</span>
+          </div>
+          <style jsx>{`
+            .space-between {
+              justify-content: space-between;
+            }
+          `}</style>
         </div>
-        <style jsx>{`
-          .space-between {
-            justify-content: space-between;
-          }
-        `}</style>
-      </div>
-    );
+      );
+    }
 
     return (
       <React.Fragment>
