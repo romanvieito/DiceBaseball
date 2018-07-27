@@ -8,7 +8,7 @@ class ScoreAndBases extends React.Component {
     visitor: propTypes.object.isRequired,
     home: propTypes.object.isRequired,
     isHomeAtBat: propTypes.bool.isRequired,
-    outs: propTypes.number.isRequired,
+    outs: propTypes.number.isRequired
   };
   render() {
     const { bases, visitor, home, isHomeAtBat, outs } = this.props;
@@ -16,7 +16,7 @@ class ScoreAndBases extends React.Component {
 
     function teamAndScore(props) {
       return (
-        <div>
+        <div className="team-score">
           <div className="flex space-between">
             <span>{props.team}</span>
             <span>{props.runs}</span>
@@ -24,6 +24,8 @@ class ScoreAndBases extends React.Component {
           <style jsx>{`
             .space-between {
               justify-content: space-between;
+              padding: 0.2em 0 0 0;
+              margin: 0.2em 0 0 0;
             }
           `}</style>
         </div>
@@ -54,16 +56,16 @@ class ScoreAndBases extends React.Component {
                   })}
                 </div>
               </td>
-              <td rowSpan="2">
+              <td>
                 <Bases bases={bases} />
               </td>
             </tr>
             <tr>
-              <td>
+              <td >
                 {!isHomeAtBat ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}{" "}
                 {innings}
               </td>
-              <td className="text-right">{outs} Out</td>
+              <td>{outs} Out</td>
             </tr>
           </tbody>
         </table>
@@ -75,12 +77,16 @@ class ScoreAndBases extends React.Component {
           .text-left {
             text-align: left;
           }
-          .flex {
-            flex-direction: column;
+          table {
+            border-collapse: collapse;
+            width: 10em;
+            padding: 4em;
           }
-          .flex-space-btw div {
-            display: flex;
-            justify-content: space-between;
+
+          table,
+          th,
+          td {
+            border: 1px solid black;
           }
         `}</style>
       </React.Fragment>

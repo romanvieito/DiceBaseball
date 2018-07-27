@@ -9,7 +9,7 @@ class Bases extends React.Component {
     const basesToRender = [...this.props.bases];
     return (
       <React.Fragment>
-        <div>
+        <div className="bases">
           {basesToRender[0] ? (
             <div className="rombo first on-base" />
           ) : (
@@ -27,6 +27,9 @@ class Bases extends React.Component {
           )}
         </div>
         <style jsx>{`
+        .bases{
+          // margin: -.3em 0 0 -1.3em;
+        }
           .rombo {
             position: absolute;
             background: #cccccc;
@@ -39,16 +42,14 @@ class Bases extends React.Component {
             transform: rotate(45deg) skew(0deg, 0deg);
           }
           .first {
-            margin-left: 3.2em;
-            margin-top: -0.5em;
+            margin-left: 3em;
           }
           .second {
-            margin-left: 2em;
-            margin-top: -1.5em;
+            margin-left: 1.8em;
+            margin-top: -1em;
           }
           .third {
-            margin-left: 0.8em;
-            margin-top: -0.5em;
+            margin-left: 0.6em;
           }
           .on-base {
             background: #7c7c7c;
