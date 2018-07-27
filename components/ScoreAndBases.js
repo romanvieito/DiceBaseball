@@ -40,7 +40,7 @@ class ScoreAndBases extends React.Component {
               <td colSpan="2">Pitcher</td>
             </tr>
             <tr>
-              <td>
+              <td className="pr-2">
                 <div>
                   {/* TODO: Double check a best way to avoid double call of the same cmp */}
                   {teamAndScore({
@@ -65,24 +65,31 @@ class ScoreAndBases extends React.Component {
                 {!isHomeAtBat ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}{" "}
                 {innings}
               </td>
-              <td>{outs} Out</td>
+              <td className="text-center">{outs} Out</td>
             </tr>
           </tbody>
         </table>
 
         <style jsx>{`
-          .text-right {
-            text-align: right;
+          .text-center {
+            text-align: center;
           }
           .text-left {
             text-align: left;
           }
           table {
             border-collapse: collapse;
-            width: 10em;
-            padding: 4em;
+            width: 12em;
           }
-
+          table tr td:first-of-type{
+            padding-left:1em;
+          }
+          tr:first-of-type td, tr:last-of-type td{
+            padding: .3em;
+          }
+          td.pr-2{
+            padding-right:.8em;
+          }
           table,
           th,
           td {
