@@ -1,5 +1,5 @@
 import React from "react";
-import HistoryRender from "../components/HistoryRender";
+import HitterList from "../components/HitterList";
 import Dices from "../components/Dices";
 import Bases from "../components/Bases";
 import ScoreTable from "../components/ScoreTable";
@@ -208,28 +208,28 @@ class Index extends React.Component {
           </header>
           <article className="main">
             <div className="board">
-              {/* <ul className="inning-list">
-                {Object.keys(historyDices).map((value, i) => (
-                  <li key={i}>
-                    Hitter{i + 1} ->{" "}
-                    {batDictionary(historyDices[value][2])}
-                  </li>
-                ))}
-              </ul> */}
               <span className="hit-label">
                 {batDictionary(lastDices[lastDices.length - 1])}
               </span>
             </div>
             <ScoreTable {...score} />
           </article>
+
           <aside className="aside visitor">
-            <h5>Visitor</h5>
-            <div className="basic-score">
+            <div className="flex-colum">
+              <h5>Visitor</h5>
+              <HitterList />
+            </div>
+            <div>
               <Bases bases={this.state.bases} />
             </div>
           </aside>
+
           <aside className="aside host">
-            <h5>Home Club</h5>
+            <div className="flex-colum">
+              <h5>Home Club</h5>
+              <HitterList />
+            </div>
             <div onClick={this.rollDice} style={{ cursor: "pointer" }}>
               <Dices
                 valueDice1={this.state.dice1}
@@ -237,6 +237,7 @@ class Index extends React.Component {
               />
             </div>
           </aside>
+
           <footer className="footer">
             {/* <ul style={{ maxWidth: "10%" }}>
               {Object.keys(historyDices).map(key => (
@@ -251,7 +252,10 @@ class Index extends React.Component {
         </div>
 
         <style jsx>{`
-          .basic-score {
+          .flex-colum {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
           }
           .wrapper {
             display: flex;
@@ -276,19 +280,10 @@ class Index extends React.Component {
             display: flex;
             align-items: center;
           }
-          .inning-list {
-            flex-grow: 1;
-            align-items: flex-start;
-          }
           .hit-label {
             flex-grow: 3;
             font: 65px arial, sans-serif;
             font-weight: 700;
-          }
-          ul.inning-list {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
           }
           @media all and (min-width: 600px) {
             .aside {
