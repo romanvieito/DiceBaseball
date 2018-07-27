@@ -6,21 +6,21 @@ class Bases extends React.Component {
     bases: propTypes.array
   };
   render() {
-    const copyArray = [...this.props.bases];
+    const basesToRender = [...this.props.bases];
     return (
       <React.Fragment>
         <div>
-          {copyArray[0] ? (
+          {basesToRender[0] ? (
             <div className="rombo first on-base" />
           ) : (
             <div className="rombo first" />
           )}
-          {copyArray[1] ? (
+          {basesToRender[1] ? (
             <div className="rombo second on-base" />
           ) : (
             <div className="rombo second" />
           )}
-          {copyArray[2] ? (
+          {basesToRender[2] ? (
             <div className="rombo third on-base" />
           ) : (
             <div className="rombo third" />
@@ -30,25 +30,25 @@ class Bases extends React.Component {
           .rombo {
             position: absolute;
             background: #cccccc;
-            width: 1.5em;
-            height: 1.5em;
-            -moz-transform: rotate(45deg) skew(10deg, 10deg);
-            -webkit-transform: rotate(45deg) skew(10deg, 10deg);
-            -ms-transform: rotate(45deg) skew(10deg, 10deg);
-            -o-transform: rotate(45deg) skew(10deg, 10deg);
-            transform: rotate(45deg) skew(10deg, 10deg);
+            width: 1.2em;
+            height: 1.2em;
+            -moz-transform: rotate(45deg) skew(0deg, 0deg);
+            -webkit-transform: rotate(45deg) skew(0deg, 0deg);
+            -ms-transform: rotate(45deg) skew(0deg, 0deg);
+            -o-transform: rotate(45deg) skew(0deg, 0deg);
+            transform: rotate(45deg) skew(0deg, 0deg);
           }
           .first {
-            margin-left: 3.96em;
-            margin-top: 1.6em;
+            margin-left: 3.2em;
+            margin-top: -0.5em;
           }
           .second {
-            margin-left: 3em;
-            margin-top: 0.3em;
+            margin-left: 2em;
+            margin-top: -1.5em;
           }
           .third {
-            margin-left: 2.08em;
-            margin-top: 1.6em;
+            margin-left: 0.8em;
+            margin-top: -0.5em;
           }
           .on-base {
             background: #7c7c7c;

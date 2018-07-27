@@ -221,7 +221,32 @@ class Index extends React.Component {
               <HitterList />
             </div>
             <div>
-              <Bases bases={this.state.bases} />
+              <table className="table">
+                <tbody>
+                  <tr>
+                    <td colSpan="2">McCarthy</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <tr>
+                        <td>NYM</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>CIN</td>
+                        <td>1</td>
+                      </tr>
+                    </td>
+                    <td rowSpan="2">
+                      <Bases bases={this.state.bases} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>^ 11</td>
+                    <td className="text-rigth">0 Out</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </aside>
 
@@ -252,6 +277,9 @@ class Index extends React.Component {
         </div>
 
         <style jsx>{`
+          .text-rigth {
+            text-align: right;
+          }
           .flex-colum {
             display: flex;
             justify-content: center;
