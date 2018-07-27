@@ -92,7 +92,7 @@ class ScoreTable extends React.Component {
           td {
             border: 1px solid;
             border-color: #9c9ea0;
-            padding: 0.5em;
+            padding: 0.3em 0.6em;
           }
           .team-name {
             text-align: left;
