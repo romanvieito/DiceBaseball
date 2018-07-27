@@ -7,10 +7,11 @@ class ScoreAndBases extends React.Component {
     bases: propTypes.array.isRequired,
     visitor: propTypes.object.isRequired,
     home: propTypes.object.isRequired,
-    isHomeAtBat: propTypes.bool.isRequired
+    isHomeAtBat: propTypes.bool.isRequired,
+    outs: propTypes.number.isRequired,
   };
   render() {
-    const { bases, visitor, home, isHomeAtBat } = this.props;
+    const { bases, visitor, home, isHomeAtBat, outs } = this.props;
     const innings = home.runs.length + 1;
 
     function teamAndScore(props) {
@@ -34,7 +35,7 @@ class ScoreAndBases extends React.Component {
         <table className="text-left">
           <tbody>
             <tr>
-              <td colSpan="2">McCarthy</td>
+              <td colSpan="2">Pitcher</td>
             </tr>
             <tr>
               <td>
@@ -62,13 +63,13 @@ class ScoreAndBases extends React.Component {
                 {!isHomeAtBat ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}{" "}
                 {innings}
               </td>
-              <td className="text-rigth">0 Out</td>
+              <td className="text-right">{outs} Out</td>
             </tr>
           </tbody>
         </table>
 
         <style jsx>{`
-          .text-rigth {
+          .text-right {
             text-align: right;
           }
           .text-left {
