@@ -76,14 +76,6 @@ class ScoreAndBases extends React.Component {
         </table>
 
         <style jsx>{`
-          .line-position {
-            content: " ";
-            display: block;
-            border-bottom: 1px solid ${basic.colors.primary};
-            width: 6.7em;
-            top: 4.3em;
-            position: relative;
-          }
           .text-center {
             text-align: center;
           }
@@ -96,6 +88,7 @@ class ScoreAndBases extends React.Component {
             color: ${basic.colors.primary};
             border-collapse: collapse;
             width: 12em;
+            letter-spacing: 2px;
           }
           table tr td:first-of-type {
             padding-left: 1em;
@@ -118,6 +111,14 @@ class ScoreAndBases extends React.Component {
           }
           .font-light {
             font-weight: 400;
+          }
+          .line-position {
+            content: " ";
+            display: block;
+            border-bottom: 1px solid ${basic.colors.primary};
+            width: 6.5em;
+            top: 4.3em;
+            position: relative;
           }
         `}</style>
       </React.Fragment>
