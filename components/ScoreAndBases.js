@@ -24,8 +24,7 @@ class ScoreAndBases extends React.Component {
           <style jsx>{`
             .space-between {
               justify-content: space-between;
-              padding: 0.2em 0 0 0;
-              margin: 0.2em 0 0 0;
+              padding: 0.4em 0 0.4em 0;
             }
           `}</style>
         </div>
@@ -60,7 +59,7 @@ class ScoreAndBases extends React.Component {
                 <Bases bases={bases} />
               </td>
             </tr>
-            <tr>
+            <tr className="no-border">
               <td >
                 {!isHomeAtBat ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}{" "}
                 {innings}
@@ -90,10 +89,13 @@ class ScoreAndBases extends React.Component {
           td.pr-2{
             padding-right:.8em;
           }
+          tr.no-border td{
+            border: 0;
+          }
           table,
           th,
           td {
-            border: 1px solid black;
+            border: 1px solid #cacccd;
           }
         `}</style>
       </React.Fragment>
