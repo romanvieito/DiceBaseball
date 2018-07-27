@@ -195,7 +195,7 @@ class Index extends React.Component {
     const { isHomeAtBat, score, historyDices } = this.state;
     const lastDices =
       historyDices[
-        Object.keys(historyDices)[Object.keys(historyDices).length - 1]
+      Object.keys(historyDices)[Object.keys(historyDices).length - 1]
       ] || [];
     return (
       <React.Fragment>
@@ -216,7 +216,7 @@ class Index extends React.Component {
           </article>
 
           <aside className="aside visitor">
-            <div className="flex-colum">
+            <div className="flex-colum hide-mobile">
               <h5>Visitor</h5>
               <HitterList />
             </div>
@@ -226,7 +226,7 @@ class Index extends React.Component {
           </aside>
 
           <aside className="aside host">
-            <div className="flex-colum">
+            <div className="flex-colum hide-mobile">
               <h5>Home Club</h5>
               <HitterList />
             </div>
@@ -285,9 +285,17 @@ class Index extends React.Component {
             font: 65px arial, sans-serif;
             font-weight: 700;
           }
+          .hide-mobile {
+            display: none;
+          }
           @media all and (min-width: 600px) {
             .aside {
               flex: 1 auto !important;
+            }
+            .flex-colum.hide-mobile {
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
             }
           }
           @media all and (min-width: 800px) {
