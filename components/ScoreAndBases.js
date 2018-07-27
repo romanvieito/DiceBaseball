@@ -1,6 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
 import Bases from "./Bases";
+import basic from "../helpers/theme";
 
 class ScoreAndBases extends React.Component {
   static propTypes = {
@@ -36,7 +37,7 @@ class ScoreAndBases extends React.Component {
         <table className="text-left">
           <tbody>
             <tr>
-              <td colSpan="2">Pitcher</td>
+              <td className="font-light" colSpan="2">Pitcher</td>
             </tr>
             <tr>
               <td className="pr-2">
@@ -60,11 +61,11 @@ class ScoreAndBases extends React.Component {
               </td>
             </tr>
             <tr className="no-border">
-              <td >
+              <td>
                 {!isHomeAtBat ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}{" "}
                 {innings}
               </td>
-              <td className="text-center">{outs} Out</td>
+              <td className="text-center">{outs} <span className="font-light">Out</span></td>
             </tr>
           </tbody>
         </table>
@@ -77,25 +78,33 @@ class ScoreAndBases extends React.Component {
             text-align: left;
           }
           table {
+            font: ${basic.font};
+            font-weight: 900;
+            color: ${basic.colors.primary};
             border-collapse: collapse;
             width: 12em;
           }
-          table tr td:first-of-type{
-            padding-left:1em;
+          table tr td:first-of-type {
+            padding-left: 1em;
           }
-          tr:first-of-type td, tr:last-of-type td{
-            padding: .3em;
+          tr:first-of-type td,
+          tr:last-of-type td {
+            padding: 0.3em;
           }
-          td.pr-2{
-            padding-right:.8em;
+          td.pr-2 {
+            padding-right: 0.8em;
           }
-          tr.no-border td{
+          tr.no-border td {
             border: 0;
           }
           table,
           th,
           td {
-            border: 1px solid #cacccd;
+            border: 1px solid;
+            border-color: ${basic.colors.border};
+          }
+          .font-light{
+            font-weight: 400;
           }
         `}</style>
       </React.Fragment>

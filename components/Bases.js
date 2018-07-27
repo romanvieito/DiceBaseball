@@ -27,9 +27,9 @@ class Bases extends React.Component {
           )}
         </div>
         <style jsx>{`
-        .bases{
-          // margin: -.3em 0 0 -1.3em;
-        }
+          .bases {
+            // margin: -.3em 0 0 -1.3em;
+          }
           .rombo {
             position: absolute;
             background: #cccccc;
