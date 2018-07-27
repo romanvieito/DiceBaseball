@@ -34,10 +34,13 @@ class ScoreAndBases extends React.Component {
 
     return (
       <React.Fragment>
+        <div className="line-position" />
         <table className="text-left">
           <tbody>
             <tr>
-              <td className="font-light" colSpan="2">Pitcher</td>
+              <td className="font-light" colSpan="2">
+                Pitcher
+              </td>
             </tr>
             <tr>
               <td className="pr-2">
@@ -65,12 +68,22 @@ class ScoreAndBases extends React.Component {
                 {!isHomeAtBat ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}{" "}
                 {innings}
               </td>
-              <td className="text-center">{outs} <span className="font-light">Out</span></td>
+              <td className="text-center">
+                {outs} <span className="font-light">Out</span>
+              </td>
             </tr>
           </tbody>
         </table>
 
         <style jsx>{`
+          .line-position {
+            content: " ";
+            display: block;
+            border-bottom: 1px solid ${basic.colors.primary};
+            width: 6.7em;
+            top: 4.3em;
+            position: relative;
+          }
           .text-center {
             text-align: center;
           }
@@ -103,7 +116,7 @@ class ScoreAndBases extends React.Component {
             border: 1px solid;
             border-color: ${basic.colors.border};
           }
-          .font-light{
+          .font-light {
             font-weight: 400;
           }
         `}</style>
