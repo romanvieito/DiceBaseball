@@ -1,7 +1,7 @@
 import React from "react";
 import HitterList from "../components/HitterList";
 import Dices from "../components/Dices";
-import Bases from "../components/Bases";
+import ScoreAndBases from "../components/ScoreAndBases";
 import ScoreTable from "../components/ScoreTable";
 import { drawBases, batDictionary } from "../helpers/batting";
 
@@ -195,7 +195,7 @@ class Index extends React.Component {
     const { isHomeAtBat, score, historyDices } = this.state;
     const lastDices =
       historyDices[
-      Object.keys(historyDices)[Object.keys(historyDices).length - 1]
+        Object.keys(historyDices)[Object.keys(historyDices).length - 1]
       ] || [];
     return (
       <React.Fragment>
@@ -221,32 +221,7 @@ class Index extends React.Component {
               <HitterList />
             </div>
             <div>
-              <table className="table">
-                <tbody>
-                  <tr>
-                    <td colSpan="2">McCarthy</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <tr>
-                        <td>NYM</td>
-                        <td>0</td>
-                      </tr>
-                      <tr>
-                        <td>CIN</td>
-                        <td>1</td>
-                      </tr>
-                    </td>
-                    <td rowSpan="2">
-                      <Bases bases={this.state.bases} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>^ 11</td>
-                    <td className="text-rigth">0 Out</td>
-                  </tr>
-                </tbody>
-              </table>
+              <ScoreAndBases bases={this.state.bases} />
             </div>
           </aside>
 
@@ -276,10 +251,17 @@ class Index extends React.Component {
           </footer>
         </div>
 
-        <style jsx>{`
-          .text-rigth {
-            text-align: right;
+        <style jsx global>{`
+          .flex {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
           }
+        `}</style>
+
+        <style jsx>{`
           .flex-colum {
             display: flex;
             justify-content: center;

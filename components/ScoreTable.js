@@ -1,6 +1,5 @@
 import React from "react";
 import propTypes from "prop-types";
-import { totalmem } from "os";
 
 class ScoreTable extends React.Component {
   static propTypes = {
