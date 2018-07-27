@@ -83,7 +83,6 @@ class ScoreAndBases extends React.Component {
             text-align: left;
           }
           table {
-            font: ${basic.font};
             font-weight: 900;
             color: ${basic.colors.primary};
             border-collapse: collapse;

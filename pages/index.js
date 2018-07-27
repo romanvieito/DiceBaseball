@@ -4,6 +4,7 @@ import Dices from "../components/Dices";
 import ScoreAndBases from "../components/ScoreAndBases";
 import ScoreTable from "../components/ScoreTable";
 import { drawBases, batDictionary } from "../helpers/batting";
+import basic from "../helpers/theme";
 
 class Index extends React.Component {
   state = {
@@ -195,7 +196,7 @@ class Index extends React.Component {
     const { isHomeAtBat, score, historyDices, bases, outs } = this.state;
     const lastDices =
       historyDices[
-        Object.keys(historyDices)[Object.keys(historyDices).length - 1]
+      Object.keys(historyDices)[Object.keys(historyDices).length - 1]
       ] || [];
     return (
       <React.Fragment>
@@ -221,7 +222,12 @@ class Index extends React.Component {
               <HitterList />
             </div>
             <div>
-              <ScoreAndBases bases={bases} isHomeAtBat={isHomeAtBat} outs={outs} {...score} />
+              <ScoreAndBases
+                bases={bases}
+                isHomeAtBat={isHomeAtBat}
+                outs={outs}
+                {...score}
+              />
             </div>
           </aside>
 
@@ -258,6 +264,9 @@ class Index extends React.Component {
             display: -ms-flexbox;
             display: -webkit-flex;
             display: flex;
+          }
+          body {
+            font: ${basic.font};
           }
         `}</style>
 
