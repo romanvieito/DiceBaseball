@@ -192,7 +192,7 @@ class Index extends React.Component {
   };
 
   render() {
-    const { isHomeAtBat, score, historyDices } = this.state;
+    const { isHomeAtBat, score, historyDices, bases } = this.state;
     const lastDices =
       historyDices[
         Object.keys(historyDices)[Object.keys(historyDices).length - 1]
@@ -221,7 +221,7 @@ class Index extends React.Component {
               <HitterList />
             </div>
             <div>
-              <ScoreAndBases bases={this.state.bases} />
+              <ScoreAndBases bases={bases} isHomeAtBat={isHomeAtBat} {...score} />
             </div>
           </aside>
 

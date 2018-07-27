@@ -4,10 +4,14 @@ import Bases from "./Bases";
 
 class ScoreAndBases extends React.Component {
   static propTypes = {
-    bases: propTypes.array
+    bases: propTypes.array.isRequired,
+    visitor: propTypes.object.isRequired,
+    home: propTypes.object.isRequired,
+    isHomeAtBat: propTypes.bool.isRequired
   };
   render() {
-    const { bases } = this.props;
+    const { bases, visitor, home, isHomeAtBat } = this.props;
+    const innings = home.runs.length + 1;
 
     function teamAndScore(props) {
       return (
@@ -35,8 +39,18 @@ class ScoreAndBases extends React.Component {
             <tr>
               <td>
                 <div>
-                  {teamAndScore({ team: "VIS", runs: "4" })}
-                  {teamAndScore({ team: "HC", runs: "4" })}
+                  {/* TODO: Double check a best way to avoid double call of the same cmp */}
+                  {teamAndScore({
+                    team: "VIS",
+                    runs: visitor.runs.reduce(
+                      (total, item) => (total += item),
+                      0
+                    )
+                  })}
+                  {teamAndScore({
+                    team: "HC",
+                    runs: home.runs.reduce((total, item) => (total += item), 0)
+                  })}
                 </div>
               </td>
               <td rowSpan="2">
@@ -44,7 +58,10 @@ class ScoreAndBases extends React.Component {
               </td>
             </tr>
             <tr>
-              <td>^ 11</td>
+              <td>
+                {!isHomeAtBat ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}{" "}
+                {innings}
+              </td>
               <td className="text-rigth">0 Out</td>
             </tr>
           </tbody>
