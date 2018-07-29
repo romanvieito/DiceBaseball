@@ -5,6 +5,7 @@ import basic from "../helpers/theme";
 
 class ScoreAndBases extends React.Component {
   static propTypes = {
+    className: propTypes.string,
     bases: propTypes.array.isRequired,
     visitor: propTypes.object.isRequired,
     home: propTypes.object.isRequired,
@@ -12,7 +13,7 @@ class ScoreAndBases extends React.Component {
     outs: propTypes.number.isRequired
   };
   render() {
-    const { bases, visitor, home, isHomeAtBat, outs } = this.props;
+    const { bases, visitor, home, isHomeAtBat, outs, className } = this.props;
     const innings = home.runs.length + 1;
 
     function teamAndScore(props) {
@@ -34,7 +35,7 @@ class ScoreAndBases extends React.Component {
 
     return (
       <React.Fragment>
-        <div>
+        <div className={className}>
           <div className="line-position" />
           <table className="text-left box-shadow">
             <tbody>
@@ -122,7 +123,7 @@ class ScoreAndBases extends React.Component {
           .line-position {
             content: " ";
             border-bottom: 1px solid ${basic.colors.primary};
-            width: 6.5em;
+            width: 54%;
             top: 4.3em;
             position: relative;
           }

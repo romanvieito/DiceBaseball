@@ -225,8 +225,9 @@ class Index extends React.Component {
                 <HitterList />
               </div>
             </div>
-            <div className="white-background">
+            <div className="pt-1">
               <ScoreAndBases
+                className="white-background"
                 bases={bases}
                 isHomeAtBat={isHomeAtBat}
                 outs={outs}
@@ -242,11 +243,12 @@ class Index extends React.Component {
               </div>
             </div>
             <div
-              className="white-background"
+              className="pt-1"
               onClick={this.rollDice}
               style={{ cursor: "pointer" }}
             >
               <Dices
+                className="white-background"
                 valueDice1={this.state.dice1}
                 valueDice2={this.state.dice2}
               />
@@ -285,6 +287,9 @@ class Index extends React.Component {
         `}</style>
 
         <style jsx>{`
+          .pt-1 {
+            padding-top: 1em;
+          }
           .flex-colum {
             display: flex;
             justify-content: center;
