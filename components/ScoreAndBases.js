@@ -34,46 +34,51 @@ class ScoreAndBases extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="line-position" />
-        <table className="text-left">
-          <tbody>
-            <tr>
-              <td className="font-light" colSpan="2">
-                Pitcher
-              </td>
-            </tr>
-            <tr>
-              <td className="pr-2">
-                <div>
-                  {/* TODO: Double check a best way to avoid double call of the same cmp */}
-                  {teamAndScore({
-                    team: "VIS",
-                    runs: visitor.runs.reduce(
-                      (total, item) => (total += item),
-                      0
-                    )
-                  })}
-                  {teamAndScore({
-                    team: "HC",
-                    runs: home.runs.reduce((total, item) => (total += item), 0)
-                  })}
-                </div>
-              </td>
-              <td>
-                <Bases bases={bases} />
-              </td>
-            </tr>
-            <tr className="no-border">
-              <td>
-                {!isHomeAtBat ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}{" "}
-                {innings}
-              </td>
-              <td className="text-center">
-                {outs} <span className="font-light">Out</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <div className="line-position" />
+          <table className="text-left box-shadow">
+            <tbody>
+              <tr>
+                <td className="font-light" colSpan="2">
+                  Pitcher
+                </td>
+              </tr>
+              <tr>
+                <td className="pr-2">
+                  <div>
+                    {/* TODO: Double check a best way to avoid double call of the same cmp */}
+                    {teamAndScore({
+                      team: "VIS",
+                      runs: visitor.runs.reduce(
+                        (total, item) => (total += item),
+                        0
+                      )
+                    })}
+                    {teamAndScore({
+                      team: "HC",
+                      runs: home.runs.reduce(
+                        (total, item) => (total += item),
+                        0
+                      )
+                    })}
+                  </div>
+                </td>
+                <td>
+                  <Bases bases={bases} />
+                </td>
+              </tr>
+              <tr className="no-border">
+                <td>
+                  {!isHomeAtBat ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}{" "}
+                  {innings}
+                </td>
+                <td className="text-center">
+                  {outs} <span className="font-light">Out</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <style jsx>{`
           .text-center {
@@ -113,7 +118,6 @@ class ScoreAndBases extends React.Component {
           }
           .line-position {
             content: " ";
-            display: block;
             border-bottom: 1px solid ${basic.colors.primary};
             width: 6.5em;
             top: 4.3em;

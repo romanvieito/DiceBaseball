@@ -196,7 +196,7 @@ class Index extends React.Component {
     const { isHomeAtBat, score, historyDices, bases, outs } = this.state;
     const lastDices =
       historyDices[
-      Object.keys(historyDices)[Object.keys(historyDices).length - 1]
+        Object.keys(historyDices)[Object.keys(historyDices).length - 1]
       ] || [];
     return (
       <React.Fragment>
@@ -268,6 +268,10 @@ class Index extends React.Component {
           body {
             font: ${basic.font};
           }
+          .box-shadow {
+            // padding: 10px;
+            box-shadow: 0px 1px 1px #888888;
+          }
         `}</style>
 
         <style jsx>{`
@@ -306,6 +310,9 @@ class Index extends React.Component {
           }
           .hide-mobile {
             display: none;
+          }
+          .text-center {
+            text-align: center;
           }
           @media all and (min-width: 600px) {
             .aside {
