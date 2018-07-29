@@ -16,7 +16,7 @@ class Dices extends React.Component {
     const { valueDice1, valueDice2 } = this.props;
     return (
       <>
-        <div className="dices">
+        <div className="dices box-shadow">
           <div className="first-dice">
             {valueDice1 === 1 ? (
               <NormalImg

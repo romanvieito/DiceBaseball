@@ -218,7 +218,7 @@ class Index extends React.Component {
 
           <aside className="aside visitor">
             <div className="flex-colum hide-mobile">
-              <h5>Visitor</h5>
+              <div>Visitor</div>
               <HitterList />
             </div>
             <div>
@@ -233,7 +233,7 @@ class Index extends React.Component {
 
           <aside className="aside host">
             <div className="flex-colum hide-mobile">
-              <h5>Home Club</h5>
+              <div>Home Club</div>
               <HitterList />
             </div>
             <div onClick={this.rollDice} style={{ cursor: "pointer" }}>
