@@ -91,7 +91,10 @@ class ScoreAndBases extends React.Component {
             font-weight: 900;
             color: ${basic.colors.primary};
             border-collapse: collapse;
-            width: 12em;
+            width: 100%;
+            -webkit-letter-spacing: 2px;
+            -moz-letter-spacing: 2px;
+            -ms-letter-spacing: 2px;
             letter-spacing: 2px;
           }
           table tr td:first-of-type {

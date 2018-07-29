@@ -26,12 +26,12 @@ class HitterList extends React.Component {
           table {
             border-collapse: collapse;
             width: 100%;
-            color: #808080;
+            color: #838383;
+            font-size: 11px;
           }
-
           th,
           td {
-            padding: 8px;
+            padding: 3px 8px;
             text-align: left;
             border-bottom: 1px solid #a1a4a6;
           }

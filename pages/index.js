@@ -221,7 +221,9 @@ class Index extends React.Component {
           <aside className="aside visitor">
             <div className="flex-colum hide-mobile white-background">
               <div>Visitor</div>
-              <HitterList />
+              <div className="">
+                <HitterList />
+              </div>
             </div>
             <div className="white-background">
               <ScoreAndBases
@@ -232,20 +234,24 @@ class Index extends React.Component {
               />
             </div>
           </aside>
-
           <aside className="aside host">
             <div className="flex-colum hide-mobile white-background">
               <div>Home Club</div>
-              <HitterList />
+              <div className="">
+                <HitterList />
+              </div>
             </div>
-            <div className="white-background" onClick={this.rollDice} style={{ cursor: "pointer" }}>
+            <div
+              className="white-background"
+              onClick={this.rollDice}
+              style={{ cursor: "pointer" }}
+            >
               <Dices
                 valueDice1={this.state.dice1}
                 valueDice2={this.state.dice2}
               />
             </div>
           </aside>
-
           <footer className="footer">
             {/* <ul style={{ maxWidth: "10%" }}>
               {Object.keys(historyDices).map(key => (
