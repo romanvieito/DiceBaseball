@@ -213,15 +213,17 @@ class Index extends React.Component {
                 {batDictionary(lastDices[lastDices.length - 1])}
               </span>
             </div>
-            <ScoreTable {...score} />
+            <div className="white-background">
+              <ScoreTable {...score} />
+            </div>
           </article>
 
           <aside className="aside visitor">
-            <div className="flex-colum hide-mobile">
+            <div className="flex-colum hide-mobile white-background">
               <div>Visitor</div>
               <HitterList />
             </div>
-            <div>
+            <div className="white-background">
               <ScoreAndBases
                 bases={bases}
                 isHomeAtBat={isHomeAtBat}
@@ -232,11 +234,11 @@ class Index extends React.Component {
           </aside>
 
           <aside className="aside host">
-            <div className="flex-colum hide-mobile">
+            <div className="flex-colum hide-mobile white-background">
               <div>Home Club</div>
               <HitterList />
             </div>
-            <div onClick={this.rollDice} style={{ cursor: "pointer" }}>
+            <div className="white-background" onClick={this.rollDice} style={{ cursor: "pointer" }}>
               <Dices
                 valueDice1={this.state.dice1}
                 valueDice2={this.state.dice2}
@@ -269,8 +271,10 @@ class Index extends React.Component {
             font: ${basic.font};
           }
           .box-shadow {
-            // padding: 10px;
             box-shadow: 0px 1px 1px #888888;
+          }
+          .white-background {
+            background-color: white;
           }
         `}</style>
 
@@ -284,6 +288,7 @@ class Index extends React.Component {
             display: flex;
             flex-flow: row wrap;
             text-align: center;
+            background-color: #e4e4e4;
           }
           .visitor {
             text-align: center;
@@ -295,7 +300,6 @@ class Index extends React.Component {
           .board {
             background-color: black;
             color: white;
-            width: 100%;
             height: 16em;
             border-style: solid;
             border-width: 6px;
