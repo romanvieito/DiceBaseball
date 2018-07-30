@@ -342,7 +342,7 @@ class Index extends React.Component {
               flex-direction: column;
             }
           }
-          @media all and (min-width: 800px) {
+          @media all and (min-width: 820px) {
             .main {
               display: flex;
               flex-direction: column;

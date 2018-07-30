@@ -28,7 +28,8 @@ class Bases extends React.Component {
         </div>
         <style jsx>{`
           .bases {
-            // margin: -.3em 0 0 -1.3em;
+            position: relative;
+            left: 28%;
           }
           .rombo {
             position: absolute;
@@ -53,6 +54,21 @@ class Bases extends React.Component {
           }
           .on-base {
             background: #7c7c7c;
+          }
+          @media all and (min-width: 820px) {
+            .bases {
+              left: -4%;
+            }
+          }
+          @media all and (min-width: 900px) {
+            .bases {
+              left: 10%;
+            }
+          }
+          @media all and (min-width: 1150px) {
+            .bases {
+              left: 20%;
+            }
           }
         `}</style>
       </React.Fragment>
