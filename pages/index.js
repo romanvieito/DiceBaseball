@@ -248,7 +248,7 @@ class Index extends React.Component {
               style={{ cursor: "pointer" }}
             >
               <Dices
-                className="white-background"
+                className="pt-3"
                 valueDice1={this.state.dice1}
                 valueDice2={this.state.dice2}
               />
@@ -283,6 +283,9 @@ class Index extends React.Component {
           }
           .white-background {
             background-color: white;
+          }
+          .pt-3 {
+            padding-top: 3em;
           }
         `}</style>
 

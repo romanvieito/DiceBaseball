@@ -18,7 +18,7 @@ class Dices extends React.Component {
     return (
       <>
         <div className={className}>
-          <div className="dices box-shadow {className}">
+          <div className="dices {className}">
             <div className="first-dice">
               {valueDice1 === 1 ? (
                 <NormalImg src={DiceImg1} alt={valueDice1.toString()} />
@@ -63,7 +63,6 @@ class Dices extends React.Component {
               .dices {
                 display: flex;
                 justify-content: center;
-                padding: 1em;
               }
               .ml-1 {
                 margin-left: 1em;
