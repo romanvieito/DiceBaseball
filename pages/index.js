@@ -311,7 +311,7 @@ class Index extends React.Component {
           .board {
             background-color: black;
             color: white;
-            height: 16em;
+            height: 17em;
             border-style: solid;
             border-width: 6px;
             border-color: white;
@@ -341,6 +341,10 @@ class Index extends React.Component {
           }
           @media all and (min-width: 800px) {
             .main {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+          
               flex: 3 0px !important;
             }
             .visitor {
