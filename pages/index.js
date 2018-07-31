@@ -363,6 +363,11 @@ class Index extends React.Component {
               order: 4 !important;
             }
           }
+          @media all and (min-width: 1000px) {
+            .wrapper {
+              padding: 0 9%;
+            }
+          }
         `}</style>
       </React.Fragment>
     );
