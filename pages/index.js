@@ -213,8 +213,8 @@ class Index extends React.Component {
                 {batDictionary(lastDices[lastDices.length - 1])}
               </span>
             </div>
-            <div className="white-background">
-              <ScoreTable {...score} />
+            <div>
+              <ScoreTable {...score} className="white-background"/>
             </div>
           </article>
 

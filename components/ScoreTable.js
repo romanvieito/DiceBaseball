@@ -8,12 +8,12 @@ class ScoreTable extends React.Component {
     home: propTypes.object
   };
   render() {
-    const { visitor, home } = this.props;
+    const { visitor, home, className } = this.props;
 
     return (
       <React.Fragment>
         <div className="wrapper">
-          <table className="table box-shadow">
+          <table className={`table box-shadow ${className}`}>
             <thead>
               <tr className="green-color">
                 <th scope="col" />
@@ -47,7 +47,7 @@ class ScoreTable extends React.Component {
               </tr>
             </tbody>
           </table>
-          <table className="table box-shadow">
+          <table className={`table box-shadow ${className}`}>
             <thead>
               <tr className="green-color">
                 <th scope="col">R</th>
