@@ -10,16 +10,17 @@ import DiceImg6 from "../static/6small.gif";
 class Dices extends React.Component {
   static propTypes = {
     className: propTypes.string,
+    onClickDices: propTypes.func,
     valueDice1: propTypes.number,
     valueDice2: propTypes.number
   };
   render() {
-    const { valueDice1, valueDice2, className } = this.props;
+    const { valueDice1, valueDice2, className, onClickDices } = this.props;
     return (
       <>
-        <div className={className}>
-          <div className="dices {className}">
-            <div className="first-dice">
+        <div>
+          <div className={`dices ${className}`}>
+            <div className="first-dice" onClick={ onClickDices } style={{ cursor: "pointer" }}>
               {valueDice1 === 1 ? (
                 <NormalImg src={DiceImg1} alt={valueDice1.toString()} />
               ) : null}
@@ -39,7 +40,7 @@ class Dices extends React.Component {
                 <NormalImg src={DiceImg6} alt={valueDice1.toString()} />
               ) : null}
             </div>
-            <div className="second-dice ml-1">
+            <div className="second-dice ml-1" onClick={ onClickDices } style={{ cursor: "pointer" }}>
               {valueDice2 === 1 ? (
                 <NormalImg src={DiceImg1} alt={valueDice2.toString()} />
               ) : null}

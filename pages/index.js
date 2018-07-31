@@ -214,15 +214,14 @@ class Index extends React.Component {
               </span>
             </div>
             <div>
-              <ScoreTable {...score} className="white-background"/>
+              <ScoreTable {...score} className="white-background" />
             </div>
           </article>
 
           <aside className="aside visitor">
             <div className="flex-colum hide-mobile white-background">
-              <div>Visitor</div>
-              <div className="">
-                <HitterList />
+              <div>
+                <HitterList teamName="Visitor" />
               </div>
             </div>
             <div className="pt-1">
@@ -237,18 +236,14 @@ class Index extends React.Component {
           </aside>
           <aside className="aside host">
             <div className="flex-colum hide-mobile white-background">
-              <div>Home Club</div>
-              <div className="">
-                <HitterList />
+              <div>
+                <HitterList teamName="Home Club" />
               </div>
             </div>
-            <div
-              className="pt-1"
-              onClick={this.rollDice}
-              style={{ cursor: "pointer" }}
-            >
+            <div className="pt-1">
               <Dices
                 className="pt-3"
+                onClickDices={this.rollDice}
                 valueDice1={this.state.dice1}
                 valueDice2={this.state.dice2}
               />
@@ -347,7 +342,7 @@ class Index extends React.Component {
               display: flex;
               flex-direction: column;
               justify-content: space-between;
-          
+
               flex: 3 0px !important;
             }
             .visitor {

@@ -1,9 +1,15 @@
 import React from "react";
+import propTypes from "prop-types";
 
 class HitterList extends React.Component {
+  static propTypes = {
+    teamName: propTypes.string
+  };
   render() {
+    const { teamName } = this.props;
     return (
       <React.Fragment>
+        <div>{teamName}</div>
         <table className="box-shadow">
           <thead>
             <tr>
