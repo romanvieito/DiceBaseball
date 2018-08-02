@@ -16,6 +16,10 @@ class ScoreAndBases extends React.Component {
     const { bases, visitor, home, isHomeAtBat, outs, className } = this.props;
     const innings = home.runs.length + 1;
 
+    if (innings <= 0) {
+      throw new Error('Sorry, wrong innings value!');
+    }
+
     function teamAndScore(props) {
       return (
         <div className="team-score">

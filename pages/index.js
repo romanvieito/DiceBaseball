@@ -1,10 +1,11 @@
-import React from "react";
-import HitterList from "../components/HitterList";
-import Dices from "../components/Dices";
-import ScoreAndBases from "../components/ScoreAndBases";
-import ScoreTable from "../components/ScoreTable";
-import { drawBases, batDictionary } from "../helpers/batting";
-import basic from "../helpers/theme";
+import React from 'react';
+import HitterList from '../components/HitterList';
+import Dices from '../components/Dices';
+import ScoreAndBases from '../components/ScoreAndBases';
+import ScoreTable from '../components/ScoreTable';
+import ErrorBoundary from '../components/ErrorBoundary';
+import { drawBases, batDictionary } from '../helpers/batting';
+import basic from '../helpers/theme';
 
 class Index extends React.Component {
   state = {
@@ -195,62 +196,59 @@ class Index extends React.Component {
   render() {
     const { isHomeAtBat, score, historyDices, bases, outs } = this.state;
     const lastDices =
-      historyDices[
-        Object.keys(historyDices)[Object.keys(historyDices).length - 1]
-      ] || [];
+      historyDices[Object.keys(historyDices)[Object.keys(historyDices).length - 1]] || [];
     return (
       <React.Fragment>
-        <div className="wrapper">
-          <header className="header">
-            <h4>BaseDice</h4>
-            <div>
-              At bat <b>{isHomeAtBat ? "Home Club" : "Visitor"}</b>.
-            </div>
-          </header>
-          <article className="main">
-            <div className="board">
-              <span className="hit-label">
-                {batDictionary(lastDices[lastDices.length - 1])}
-              </span>
-            </div>
-            <div>
-              <ScoreTable {...score} className="white-background" />
-            </div>
-          </article>
+        <ErrorBoundary>
+          <div className="wrapper">
+            <header className="header">
+              <h4>BaseDice</h4>
+              <div>
+                At bat <b>{isHomeAtBat ? 'Home Club' : 'Visitor'}</b>.
+              </div>
+            </header>
+            <article className="main">
+              <div className="board">
+                <span className="hit-label">{batDictionary(lastDices[lastDices.length - 1])}</span>
+              </div>
+              <div>
+                <ScoreTable {...score} className="white-background" />
+              </div>
+            </article>
 
-          <aside className="aside visitor">
-            <div className="flex-colum hide-mobile white-background">
-              <div>
-                <HitterList teamName="Visitor" />
+            <aside className="aside visitor">
+              <div className="flex-colum hide-mobile white-background">
+                <div>
+                  <HitterList teamName="Visitor" />
+                </div>
               </div>
-            </div>
-            <div className="pt-1">
-              <ScoreAndBases
-                className="white-background"
-                bases={bases}
-                isHomeAtBat={isHomeAtBat}
-                outs={outs}
-                {...score}
-              />
-            </div>
-          </aside>
-          <aside className="aside host">
-            <div className="flex-colum hide-mobile white-background">
-              <div>
-                <HitterList teamName="Home Club" />
+              <div className="pt-1">
+                <ScoreAndBases
+                  className="white-background"
+                  bases={bases}
+                  isHomeAtBat={isHomeAtBat}
+                  outs={outs}
+                  {...score}
+                />
               </div>
-            </div>
-            <div className="pt-1">
-              <Dices
-                className="pt-3"
-                onClickDices={this.rollDice}
-                valueDice1={this.state.dice1}
-                valueDice2={this.state.dice2}
-              />
-            </div>
-          </aside>
-          <footer className="footer">
-            {/* <ul style={{ maxWidth: "10%" }}>
+            </aside>
+            <aside className="aside host">
+              <div className="flex-colum hide-mobile white-background">
+                <div>
+                  <HitterList teamName="Home Club" />
+                </div>
+              </div>
+              <div className="pt-1">
+                <Dices
+                  className="pt-3"
+                  onClickDices={this.rollDice}
+                  valueDice1={this.state.dice1}
+                  valueDice2={this.state.dice2}
+                />
+              </div>
+            </aside>
+            <footer className="footer">
+              {/* <ul style={{ maxWidth: "10%" }}>
               {Object.keys(historyDices).map(key => (
                 <HistoryRender
                   key={key}
@@ -259,111 +257,112 @@ class Index extends React.Component {
                 />
               ))}
             </ul> */}
-          </footer>
-        </div>
+            </footer>
+          </div>
 
-        <style jsx global>{`
-          .flex {
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-          }
-          body {
-            font: ${basic.font};
-          }
-          .box-shadow {
-            box-shadow: 0px 1px 1px #888888;
-          }
-          .white-background {
-            background-color: white;
-          }
-          .pt-3 {
-            padding-top: 3em;
-          }
-        `}</style>
-
-        <style jsx>{`
-          .pt-1 {
-            padding-top: 1em;
-          }
-          .flex-colum {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-          }
-          .wrapper {
-            display: flex;
-            flex-flow: row wrap;
-            text-align: center;
-            background-color: #e4e4e4;
-          }
-          .visitor {
-            text-align: center;
-          }
-          .wrapper > * {
-            padding: 10px;
-            flex: 1 100%;
-          }
-          .board {
-            background-color: black;
-            color: white;
-            height: 17em;
-            border-style: solid;
-            border-width: 6px;
-            border-color: white;
-            display: flex;
-            align-items: center;
-          }
-          .hit-label {
-            flex-grow: 3;
-            font: 65px arial, sans-serif;
-            font-weight: 700;
-          }
-          .hide-mobile {
-            display: none;
-          }
-          .text-center {
-            text-align: center;
-          }
-          @media all and (min-width: 600px) {
-            .aside {
-              flex: 1 auto !important;
+          <style jsx global>{`
+            .flex {
+              display: -webkit-box;
+              display: -moz-box;
+              display: -ms-flexbox;
+              display: -webkit-flex;
+              display: flex;
             }
-            .flex-colum.hide-mobile {
+            body {
+              font: ${basic.font};
+            }
+            .box-shadow {
+              box-shadow: 0px 1px 1px #888888;
+            }
+            .white-background {
+              background-color: white;
+            }
+            .pt-3 {
+              padding-top: 3em;
+            }
+          `}</style>
+
+          <style jsx>{`
+            .pt-1 {
+              padding-top: 1em;
+            }
+            .flex-colum {
               display: flex;
               justify-content: center;
               flex-direction: column;
             }
-          }
-          @media all and (min-width: 820px) {
-            .main {
+            .wrapper {
               display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-
-              flex: 3 0px !important;
+              flex-flow: row wrap;
+              text-align: center;
+              background-color: #e4e4e4;
             }
             .visitor {
-              order: 1 !important;
+              text-align: center;
             }
-            .main {
-              order: 2 !important;
+            .wrapper > * {
+              padding: 10px;
+              flex: 1 100%;
             }
-            .host {
-              order: 3 !important;
+            .board {
+              background-color: black;
+              color: white;
+              height: 17em;
+              border-style: solid;
+              border-width: 6px;
+              border-color: white;
+              display: flex;
+              align-items: center;
             }
-            .footer {
-              order: 4 !important;
+            .hit-label {
+              flex-grow: 3;
+              font: 65px arial, sans-serif;
+              font-weight: 700;
             }
-          }
-          @media all and (min-width: 1000px) {
-            .wrapper {
-              padding: 0 9%;
+            .hide-mobile {
+              display: none;
             }
-          }
-        `}</style>
+            .text-center {
+              text-align: center;
+            }
+            @media all and (min-width: 600px) {
+              .aside {
+                flex: 1 auto !important;
+              }
+              .flex-colum.hide-mobile {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+              }
+            }
+            @media all and (min-width: 820px) {
+              .main {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                flex: 3 0px !important;
+              }
+              .visitor {
+                order: 1 !important;
+              }
+              .main {
+                order: 2 !important;
+              }
+              .host {
+                order: 3 !important;
+              }
+              .footer {
+                order: 4 !important;
+              }
+            }
+            @media all and (min-width: 1000px) {
+              .wrapper {
+                padding: 0 9%;
+              }
+            }
+          `}</style>
+        </ErrorBoundary>
       </React.Fragment>
     );
   }
