@@ -1,10 +1,12 @@
 {
-  "name": "BaseballGame",
+  "name": "baseballgame",
   "version": "1.0.0",
   "description": "Baseball with Dices",
   "main": "index.js",
   "scripts": {
     "dev": "next",
+    "eslint": "eslint ./components --ignore-pattern node_modules/",
+    "eslint:fix": "eslint --fix ./components --ignore-pattern node_modules/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,9 +15,19 @@
   "dependencies": {
     "next": "^6.1.1",
     "next-images": "^0.10.5",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "node-sass": "^4.5.3",
     "styled-jsx-plugin-sass": "^0.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.10.0",
+    "prettier": "^1.14.0"
   }
 }
