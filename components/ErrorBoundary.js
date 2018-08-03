@@ -1,5 +1,5 @@
 import React from 'react';
-import { createDiffieHellman } from 'crypto';
+import propTypes from 'prop-types';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -7,25 +7,31 @@ class ErrorBoundary extends React.Component {
     this.state = { error: null, errorInfo: null };
   }
 
+  static propTypes = {
+    error: propTypes.any,
+    errorInfo: propTypes.any
+  };
+
   componentDidCatch(error, errorInfo) {
     // Catch errors in any components below and re-render with error message
     this.setState({
-      error: error,
-      errorInfo: errorInfo
+      error,
+      errorInfo
     });
     // You can also log error messages to an error reporting service here
   }
 
   render() {
-    if (this.state.errorInfo) {
+    const { error, errorInfo } = this.props;
+    if (errorInfo) {
       // Error path
       return (
         <div>
           <h2>Something went wrong.</h2>
           <details style={{ whiteSpace: 'pre-wrap' }}>
-            {this.state.error && this.state.error.toString()}
+            {error && error.toString()}
             <br />
-            {this.state.errorInfo.componentStack}
+            {errorInfo.componentStack}
           </details>
         </div>
       );

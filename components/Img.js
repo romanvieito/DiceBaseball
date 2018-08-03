@@ -6,17 +6,19 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
-function Img(props) {
-  return <img className={props.className} src={props.src} alt={props.alt} />;
+class Img extends React.Component {
+  static propTypes = {
+    // Require the use of src and alt, only enforced by react in dev mode
+    src: propTypes.oneOfType([propTypes.string, propTypes.object]).isRequired,
+    alt: propTypes.string.isRequired,
+    className: propTypes.string
+  };
+  render() {
+    const { className, src, alt } = this.props;
+    return <img className={className} src={src} alt={alt} />;
+  }
 }
-
-// We require the use of src and alt, only enforced by react in dev mode
-Img.propTypes = {
-  src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
-  alt: PropTypes.string.isRequired,
-  className: PropTypes.string
-};
 
 export default Img;
