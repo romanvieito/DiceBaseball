@@ -2,15 +2,17 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 class ErrorBoundary extends React.Component {
+  static propTypes = {
+    children: propTypes.any,
+    error: propTypes.any,
+    errorInfo: propTypes.any
+  };
+
+  /* eslint-disable react/no-unused-state */
   constructor(props) {
     super(props);
     this.state = { error: null, errorInfo: null };
   }
-
-  static propTypes = {
-    error: propTypes.any,
-    errorInfo: propTypes.any
-  };
 
   componentDidCatch(error, errorInfo) {
     // Catch errors in any components below and re-render with error message
@@ -20,9 +22,10 @@ class ErrorBoundary extends React.Component {
     });
     // You can also log error messages to an error reporting service here
   }
+  /* eslint-disable react/no-unused-state */
 
   render() {
-    const { error, errorInfo } = this.props;
+    const { error, errorInfo, children } = this.props;
     if (errorInfo) {
       // Error path
       return (
@@ -37,7 +40,7 @@ class ErrorBoundary extends React.Component {
       );
     }
     // Normally, just render children
-    return this.props.children;
+    return children;
   }
 }
 
