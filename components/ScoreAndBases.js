@@ -10,12 +10,12 @@ class ScoreAndBases extends React.Component {
     visitor: propTypes.object.isRequired,
     home: propTypes.object.isRequired,
     isHomeAtBat: propTypes.bool.isRequired,
+    innings: propTypes.number.isRequired,
     outs: propTypes.number.isRequired
   };
 
   render() {
-    const { bases, visitor, home, isHomeAtBat, outs, className } = this.props;
-    const innings = home.runs.length + 1;
+    const { bases, visitor, home, isHomeAtBat, outs, innings, className } = this.props;
 
     if (innings <= 0) {
       throw new Error('Sorry, wrong innings value!');

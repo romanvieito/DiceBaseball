@@ -22,6 +22,7 @@ class Index extends React.Component {
     },
     outs: 0,
     runs: 0,
+    innings: 1,
     bases: [false, false, false],
     dice1: 1,
     dice2: 1,
@@ -142,13 +143,18 @@ class Index extends React.Component {
     const { runs, isHomeAtBat } = this.state;
     this.addRunsToScore(runs, isHomeAtBat);
 
+    if (isHomeAtBat)
+      this.setState(prevState => ({
+        innings: prevState.innings + 1
+      }));
+
     this.setState({ bases: [false, false, false] });
     this.setState({ outs: 0 });
     this.setState({ runs: 0 });
     this.setState({ isHomeAtBat: !this.state.isHomeAtBat });
   };
 
-  //Update score state at the end of the inning
+  //Update runs score state
   addRunsToScore = (runs, isHomeAtBat) => {
     let score = { ...this.state.score };
     if (isHomeAtBat) {
@@ -194,7 +200,7 @@ class Index extends React.Component {
   };
 
   render() {
-    const { isHomeAtBat, score, historyDices, bases, outs } = this.state;
+    const { isHomeAtBat, score, historyDices, bases, outs, innings } = this.state;
     const lastDices =
       historyDices[Object.keys(historyDices)[Object.keys(historyDices).length - 1]] || [];
     return (
@@ -228,6 +234,7 @@ class Index extends React.Component {
                   bases={bases}
                   isHomeAtBat={isHomeAtBat}
                   outs={outs}
+                  innings={innings}
                   {...score}
                 />
               </div>
