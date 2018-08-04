@@ -1,10 +1,11 @@
-import React from "react";
-import propTypes from "prop-types";
+import React from 'react';
+import propTypes from 'prop-types';
 
 class Bases extends React.Component {
   static propTypes = {
     bases: propTypes.array
   };
+
   render() {
     const basesToRender = [...this.props.bases];
     return (
@@ -26,51 +27,53 @@ class Bases extends React.Component {
             <div className="rombo third" />
           )}
         </div>
-        <style jsx>{`
-          .bases {
-            position: relative;
-            left: 28%;
-          }
-          .rombo {
-            position: absolute;
-            background: #cccccc;
-            width: 1.2em;
-            height: 1.2em;
-            -moz-transform: rotate(45deg) skew(0deg, 0deg);
-            -webkit-transform: rotate(45deg) skew(0deg, 0deg);
-            -ms-transform: rotate(45deg) skew(0deg, 0deg);
-            -o-transform: rotate(45deg) skew(0deg, 0deg);
-            transform: rotate(45deg) skew(0deg, 0deg);
-          }
-          .first {
-            margin-left: 3em;
-          }
-          .second {
-            margin-left: 1.8em;
-            margin-top: -1em;
-          }
-          .third {
-            margin-left: 0.6em;
-          }
-          .on-base {
-            background: #7c7c7c;
-          }
-          @media all and (min-width: 820px) {
+        <style jsx>
+          {`
             .bases {
-              left: -4%;
+              position: relative;
+              left: 28%;
             }
-          }
-          @media all and (min-width: 900px) {
-            .bases {
-              left: 10%;
+            .rombo {
+              position: absolute;
+              background: #cccccc;
+              width: 1.2em;
+              height: 1.2em;
+              -moz-transform: rotate(45deg) skew(0deg, 0deg);
+              -webkit-transform: rotate(45deg) skew(0deg, 0deg);
+              -ms-transform: rotate(45deg) skew(0deg, 0deg);
+              -o-transform: rotate(45deg) skew(0deg, 0deg);
+              transform: rotate(45deg) skew(0deg, 0deg);
             }
-          }
-          @media all and (min-width: 1150px) {
-            .bases {
-              left: 20%;
+            .first {
+              margin-left: 3em;
             }
-          }
-        `}</style>
+            .second {
+              margin-left: 1.8em;
+              margin-top: -1em;
+            }
+            .third {
+              margin-left: 0.6em;
+            }
+            .on-base {
+              background: #7c7c7c;
+            }
+            @media all and (min-width: 820px) {
+              .bases {
+                left: -4%;
+              }
+            }
+            @media all and (min-width: 900px) {
+              .bases {
+                left: 10%;
+              }
+            }
+            @media all and (min-width: 1150px) {
+              .bases {
+                left: 20%;
+              }
+            }
+          `}
+        </style>
       </React.Fragment>
     );
   }

@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 class HistoryRender extends React.Component {
   static propTypes = {
@@ -7,6 +7,7 @@ class HistoryRender extends React.Component {
       numbers: PropTypes.array
     })
   };
+
   render() {
     const { numbers } = this.props.details;
     return (
@@ -14,7 +15,8 @@ class HistoryRender extends React.Component {
         <h3>
           {numbers.map((data, index) => (
             <span key={index}>
-              {data}{index === 1 ? ' - ' : ''}
+              {data}
+              {index === 1 ? ' - ' : ''}
             </span>
           ))}
         </h3>

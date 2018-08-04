@@ -5,6 +5,7 @@ class HitterList extends React.Component {
   static propTypes = {
     teamName: propTypes.string
   };
+
   render() {
     const { teamName } = this.props;
     return (
@@ -28,20 +29,22 @@ class HitterList extends React.Component {
             ))}
           </tbody>
         </table>
-        <style jsx>{`
-          table {
-            border-collapse: collapse;
-            width: 100%;
-            color: #838383;
-            font-size: 11px;
-          }
-          th,
-          td {
-            padding: 3px 8px;
-            text-align: left;
-            border-bottom: 1px solid #a1a4a6;
-          }
-        `}</style>
+        <style jsx>
+          {`
+            table {
+              border-collapse: collapse;
+              width: 100%;
+              color: #838383;
+              font-size: 11px;
+            }
+            th,
+            td {
+              padding: 3px 8px;
+              text-align: left;
+              border-bottom: 1px solid #a1a4a6;
+            }
+          `}
+        </style>
       </React.Fragment>
     );
   }
