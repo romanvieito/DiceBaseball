@@ -7,25 +7,13 @@ class Bases extends React.Component {
   };
 
   render() {
-    const basesToRender = [...this.props.bases];
+    const { bases } = this.props;
     return (
       <React.Fragment>
         <div className="bases">
-          {basesToRender[0] ? (
-            <div className="rombo first on-base" />
-          ) : (
-            <div className="rombo first" />
-          )}
-          {basesToRender[1] ? (
-            <div className="rombo second on-base" />
-          ) : (
-            <div className="rombo second" />
-          )}
-          {basesToRender[2] ? (
-            <div className="rombo third on-base" />
-          ) : (
-            <div className="rombo third" />
-          )}
+          {bases[0] ? <div className="rombo first on-base" /> : <div className="rombo first" />}
+          {bases[1] ? <div className="rombo second on-base" /> : <div className="rombo second" />}
+          {bases[2] ? <div className="rombo third on-base" /> : <div className="rombo third" />}
         </div>
         <style jsx>
           {`

@@ -16,13 +16,26 @@ class Dices extends React.Component {
     valueDice2: propTypes.number
   };
 
+  handleKeyDown = event => {
+    const { onClickDices } = this.props;
+    if (event.keyCode === 13) onClickDices();
+  };
+
   render() {
     const { valueDice1, valueDice2, className, onClickDices } = this.props;
     return (
       <>
         <div>
-          <div className={`dices ${className}`}>
-            <div className="first-dice" onClick={onClickDices} style={{ cursor: 'pointer' }}>
+          {/* eslint-disable jsx-a11y/no-noninteractive-tabindex */}
+          <div
+            className={`dices ${className}`}
+            tabIndex="0"
+            role="presentation"
+            onClick={onClickDices}
+            onKeyDown={this.handleKeyDown}
+          >
+            {/* eslint-disable jsx-a11y/no-noninteractive-tabindex */}
+            <div className="first-dice" style={{ cursor: 'pointer' }}>
               {valueDice1 === 1 ? <NormalImg src={DiceImg1} alt={valueDice1.toString()} /> : null}
               {valueDice1 === 2 ? <NormalImg src={DiceImg2} alt={valueDice1.toString()} /> : null}
               {valueDice1 === 3 ? <NormalImg src={DiceImg3} alt={valueDice1.toString()} /> : null}
@@ -30,7 +43,7 @@ class Dices extends React.Component {
               {valueDice1 === 5 ? <NormalImg src={DiceImg5} alt={valueDice1.toString()} /> : null}
               {valueDice1 === 6 ? <NormalImg src={DiceImg6} alt={valueDice1.toString()} /> : null}
             </div>
-            <div className="second-dice ml-1" onClick={onClickDices} style={{ cursor: 'pointer' }}>
+            <div className="second-dice ml-1" style={{ cursor: 'pointer' }}>
               {valueDice2 === 1 ? <NormalImg src={DiceImg1} alt={valueDice2.toString()} /> : null}
               {valueDice2 === 2 ? <NormalImg src={DiceImg2} alt={valueDice2.toString()} /> : null}
               {valueDice2 === 3 ? <NormalImg src={DiceImg3} alt={valueDice2.toString()} /> : null}
