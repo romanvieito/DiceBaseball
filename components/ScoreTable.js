@@ -32,7 +32,7 @@ class ScoreTable extends React.Component {
                   Visitor
                 </th>
                 {visitor.runs.map((value, i) => (
-                  <td className="no-border" scope="col" key={i}>
+                  <td className="no-border" key={i}>
                     {value}
                   </td>
                 ))}
@@ -42,7 +42,7 @@ class ScoreTable extends React.Component {
                   Home
                 </th>
                 {home.runs.map((value, i) => (
-                  <td className="no-border" scope="col" key={i}>
+                  <td className="no-border" key={i}>
                     {value}
                   </td>
                 ))}
@@ -59,7 +59,9 @@ class ScoreTable extends React.Component {
             </thead>
             <tbody>
               <tr>
+                {/* eslint-disable no-param-reassign */}
                 <th scope="row">{visitor.runs.reduce((total, item) => (total += item), 0)}</th>
+                {/* eslint-disable no-param-reassign */}
                 <td>{visitor.hitsTotal}</td>
                 <td>0</td>
               </tr>

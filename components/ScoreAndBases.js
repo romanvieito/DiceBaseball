@@ -55,10 +55,12 @@ class ScoreAndBases extends React.Component {
                 <td className="pr-2">
                   <div>
                     {/* TODO: Double check a best way to avoid double call of the same cmp */}
+                    {/* eslint-disable no-param-reassign */}
                     {teamAndScore({
                       team: 'VIS',
                       runs: visitor.runs.reduce((total, item) => (total += item), 0)
                     })}
+                    {/* eslint-disable no-param-reassign */}
                     {teamAndScore({
                       team: 'HC',
                       runs: home.runs.reduce((total, item) => (total += item), 0)
