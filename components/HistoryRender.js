@@ -9,11 +9,11 @@ class HistoryRender extends React.Component {
   };
 
   render() {
-    const { numbers } = this.props.details;
+    const { details } = this.props;
     return (
       <li>
         <h3>
-          {numbers.map((data, index) => (
+          {details.numbers.map((data, index) => (
             <span key={index}>
               {data}
               {index === 1 ? ' - ' : ''}
