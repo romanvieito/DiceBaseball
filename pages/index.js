@@ -12,7 +12,7 @@ class Index extends React.Component {
     historyDices: {},
     score: {
       visitor: {
-        runs: [],
+        runs: [0],
         hitsTotal: 0
       },
       home: {
@@ -115,7 +115,6 @@ class Index extends React.Component {
   existRunnerOnBase = () => {
     //Return false if bases are clean
     if (this.state.bases.lastIndexOf(true) === -1) return false;
-
     return true;
   };
 
@@ -140,26 +139,32 @@ class Index extends React.Component {
 
   //Initializing state for new inning
   setNewInning = () => {
-    const { runs, isHomeAtBat } = this.state;
-    this.addRunsToScore(runs, isHomeAtBat);
+    const { isHomeAtBat, innings } = this.state;
+    const auxIsHomeAtBat = isHomeAtBat;
 
-    if (isHomeAtBat)
+    if (isHomeAtBat) {
+      //If home club batting add 1 inning to state and visitor start with 0 runs
       this.setState(prevState => ({
         innings: prevState.innings + 1
       }));
+      this.addRunsToScore(0, innings + 1, !auxIsHomeAtBat);
+    } else this.addRunsToScore(0, innings, !auxIsHomeAtBat); //If visitor batting home club start with 0 runs
 
     this.setState({ bases: [false, false, false] });
     this.setState({ outs: 0 });
     this.setState({ runs: 0 });
-    this.setState({ isHomeAtBat: !this.state.isHomeAtBat });
+    this.setState(prevState => ({
+      isHomeAtBat: !prevState.isHomeAtBat
+    }));
   };
 
   //Update runs score state
-  addRunsToScore = (runs, isHomeAtBat) => {
+  addRunsToScore = (runs, inning, isHomeAtBat) => {
     let score = { ...this.state.score };
+    const inningAux = inning - 1;
     if (isHomeAtBat) {
-      score.home.runs.push(runs);
-    } else score.visitor.runs.push(runs);
+      score.home.runs[inningAux] = runs;
+    } else score.visitor.runs[inningAux] = runs;
     this.setState({ score });
   };
 
@@ -199,6 +204,13 @@ class Index extends React.Component {
     } else this.addTwoOuts();
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.runs > prevState.runs) {
+      const { runs, innings, isHomeAtBat } = this.state;
+      this.addRunsToScore(runs, innings, isHomeAtBat);
+    }
+  }
+
   render() {
     const { isHomeAtBat, score, historyDices, bases, outs, innings } = this.state;
     const lastDices =
@@ -218,7 +230,7 @@ class Index extends React.Component {
                 <span className="hit-label">{batDictionary(lastDices[lastDices.length - 1])}</span>
               </div>
               <div>
-                <ScoreTable {...score} className="white-background" />
+                <ScoreTable {...score} innings={innings} className="white-background" />
               </div>
             </article>
 
