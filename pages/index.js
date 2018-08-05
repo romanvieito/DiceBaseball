@@ -142,13 +142,7 @@ class Index extends React.Component {
     const { isHomeAtBat, innings } = this.state;
     const auxIsHomeAtBat = isHomeAtBat;
 
-    if (isHomeAtBat) {
-      //If home club batting add 1 inning to state and visitor start with 0 runs
-      this.setState(prevState => ({
-        innings: prevState.innings + 1
-      }));
-      this.addRunsToScore(0, innings + 1, !auxIsHomeAtBat);
-    } else this.addRunsToScore(0, innings, !auxIsHomeAtBat); //If visitor batting home club start with 0 runs
+    if (innings >= 9 && this.gameOver()) return; //Watch out, game over
 
     this.setState({ bases: [false, false, false] });
     this.setState({ outs: 0 });
@@ -156,6 +150,39 @@ class Index extends React.Component {
     this.setState(prevState => ({
       isHomeAtBat: !prevState.isHomeAtBat
     }));
+
+    if (isHomeAtBat) {
+      //If home club batting add 1 inning to state and visitor start with 0 runs
+      this.setState(prevState => ({
+        innings: prevState.innings + 1
+      }));
+      this.addRunsToScore(0, innings + 1, !auxIsHomeAtBat);
+    } else this.addRunsToScore(0, innings, !auxIsHomeAtBat); //If visitor batting home club start with 0 runs
+  };
+
+  //If game over return true, else false (just call it when new inning start)
+  gameOver = () => {
+    const { isHomeAtBat } = this.state;
+    if (!isHomeAtBat && this.whoIsWinning() === 1) {
+      console.log('HC WIN');
+      return true;
+    }
+    if (isHomeAtBat && this.whoIsWinning() === -1) {
+      console.log('VISITOR WIN');
+      return true;
+    }
+    return false;
+  };
+
+  //Return 1 if home club is winning, -1 if losing and 0 if score tied
+  whoIsWinning = () => {
+    const { score } = this.state;
+    const homeTotalRuns = score.home.runs.reduce((total, item) => (total += item), 0);
+    const visitorTotalRuns = score.visitor.runs.reduce((total, item) => (total += item), 0);
+
+    if (homeTotalRuns > visitorTotalRuns) return 1;
+    if (visitorTotalRuns > homeTotalRuns) return -1;
+    return 0;
   };
 
   //Update runs score state
@@ -209,6 +236,10 @@ class Index extends React.Component {
       const { runs, innings, isHomeAtBat } = this.state;
       this.addRunsToScore(runs, innings, isHomeAtBat);
     }
+
+    // if (this.state.innings >= 9 && this.state.runs !== prevState.runs) {
+    //   this.gameOver();
+    // }
   }
 
   render() {
