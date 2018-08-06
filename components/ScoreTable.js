@@ -9,8 +9,25 @@ class ScoreTable extends React.Component {
     home: propTypes.object
   };
 
+  state = {
+    inningsNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  };
+
+  componentDidUpdate(previousProps) {
+    if (this.props.visitor.runs.length > 9) {
+      if (this.props.visitor.runs.length !== this.state.inningsNumbers.length) {
+        let inningsNumbersAux = [];
+        const { visitor } = this.props;
+        inningsNumbersAux = visitor.runs.map((value, i) => i + 1);
+        this.setState({ inningsNumbers: inningsNumbersAux });
+        console.log("q");
+      }
+    }
+  }
+
   render() {
     const { visitor, home, className } = this.props;
+    const { inningsNumbers } = this.state;
 
     return (
       <React.Fragment>
@@ -19,7 +36,7 @@ class ScoreTable extends React.Component {
             <thead>
               <tr className="green-color">
                 <th scope="col" />
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((v, i) => (
+                {inningsNumbers.map((v, i) => (
                   <th scope="col" key={i}>
                     {v}
                   </th>
