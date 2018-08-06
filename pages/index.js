@@ -269,7 +269,7 @@ class Index extends React.Component {
         <ErrorBoundary>
           <div className="wrapper">
             <header className="header">
-              <h4>Simpler Baseball</h4>
+              <h4 className="my-05">Simpler Baseball</h4>
               <div>
                 At bat <b>{isHomeAtBat ? teamNamesLong.hc : teamNamesLong.vis}</b>.
               </div>
@@ -365,6 +365,10 @@ class Index extends React.Component {
             {`
               .pt-1 {
                 padding-top: 1em;
+              }
+              .my-05 {
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
               }
               .flex-colum {
                 display: flex;
