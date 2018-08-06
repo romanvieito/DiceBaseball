@@ -267,7 +267,7 @@ class Index extends React.Component {
                   {!gameOver ? (
                     batDictionary(lastDices[lastDices.length - 1])
                   ) : (
-                    <span>{this.whoIsWinning() ? 'HOME CLUB' : 'VISITOR'} WIN!!!</span>
+                    <span>{this.whoIsWinning() === 1 ? 'HOME CLUB' : 'VISITOR'} WIN!!!</span>
                   )}
                 </span>
               </div>
