@@ -30,44 +30,75 @@ class Index extends React.Component {
     isHomeAtBat: false
   };
 
-  //For every turn at bat (btn click)
-  //Getting the right dice, setting (draw)bases states and adding outs
+  componentDidUpdate(prevProps, prevState) {
+    const { runs } = this.state;
+    if (runs > prevState.runs) {
+      const { innings, isHomeAtBat } = this.state;
+      this.addRunsToScore(runs, innings, isHomeAtBat);
+    }
+  }
+
+  // Initializing state for new inning
+  setNewInning = () => {
+    const { isHomeAtBat, innings } = this.state;
+    const auxIsHomeAtBat = isHomeAtBat;
+
+    if (innings >= 9 && this.gameOver()) return; // Watch out, game over
+
+    this.setState({ bases: [false, false, false] });
+    this.setState({ outs: 0 });
+    this.setState({ runs: 0 });
+    this.setState(prevState => ({
+      isHomeAtBat: !prevState.isHomeAtBat
+    }));
+
+    if (isHomeAtBat) {
+      // If home club batting add 1 inning to state and visitor start with 0 runs
+      this.setState(prevState => ({
+        innings: prevState.innings + 1
+      }));
+      this.addRunsToScore(0, innings + 1, !auxIsHomeAtBat);
+    } else this.addRunsToScore(0, innings, !auxIsHomeAtBat); // If visitor batting home club start with 0 runs
+  };
+
+  // For every turn at bat (btn click)
+  // Getting the right dice, setting (draw)bases states and adding outs
   rollDice = () => {
     const dice1 = Math.ceil(Math.random() * 6);
     const dice2 = Math.ceil(Math.random() * 6);
-    const bases = this.state.bases;
-    //Update our state object (dice1,dice2)
+    const { bases } = this.state;
+    // Update our state object (dice1,dice2)
     this.setState({ dice1 });
     this.setState({ dice2 });
-    //Get just the right dice
+    // Get just the right dice
     let dicenumber = dice1;
     if (dicenumber > dice2) dicenumber = dice2;
-    //Draw Bases
+    // Draw Bases
     this.setState({ bases: drawBases(dicenumber, bases) });
-    //Adding dices numbers to history
+    // Adding dices numbers to history
     this.addNewDiceNumberToHistory(dice1, dice2, dicenumber);
-    //Adding Outs and Runs to state
+    // Adding Outs and Runs to state
     this.addingOutsAndRuns(dicenumber, bases);
     this.addingHits(dicenumber);
   };
 
-  //Adding hits to the score
+  // Adding hits to the score
   addingHits = diceNumber => {
     if (diceNumber < 3) return;
     const { isHomeAtBat, innings } = this.state;
-    let score = { ...this.state.score };
+    const { score } = this.state;
 
     if (isHomeAtBat) {
-      score.home.hitsTotal++;
-    } else score.visitor.hitsTotal++;
+      score.home.hitsTotal += 1;
+    } else score.visitor.hitsTotal += 1;
 
     this.setState({ score }, () => {
-      //Checking if visitor lose being on the field
+      // Checking if visitor lose being on the field
       if (innings >= 9 && isHomeAtBat && this.whoIsWinning() === 1) this.state.gameOver = true;
     });
   };
 
-  //Add runs to score or outs (states)
+  // Add runs to score or outs (states)
   addingOutsAndRuns = (dicenumber, bases) => {
     switch (dicenumber) {
       case 1:
@@ -83,8 +114,8 @@ class Index extends React.Component {
           }));
         }
         break;
-      case 4:
-        let runs2B = bases.reduce((n, value, i) => {
+      case 4: {
+        const runs2B = bases.reduce((n, value, i) => {
           if (i > 0) {
             return n + (value === true);
           }
@@ -94,106 +125,87 @@ class Index extends React.Component {
           runs: prevState.runs + runs2B
         }));
         break;
-      case 5:
-        const runs3B = bases.reduce((n, value) => {
-          return n + (value === true);
-        }, 0);
+      }
+      case 5: {
+        const runs3B = bases.reduce((n, value) => n + (value === true), 0);
         this.setState(prevState => ({
           runs: prevState.runs + runs3B
         }));
         break;
-      case 6:
-        const runsHR = bases.reduce((n, value) => {
-          return n + (value === true);
-        }, 0);
+      }
+      case 6: {
+        const runsHR = bases.reduce((n, value) => n + (value === true), 0);
         this.setState(prevState => ({
           runs: prevState.runs + runsHR + 1
         }));
         break;
+      }
       default:
         break;
     }
   };
 
-  //Find if exist runner on base and delete the more advanced
+  // Find if exist runner on base and delete the more advanced
   existRunnerOnBase = () => {
-    //Return false if bases are clean
-    if (this.state.bases.lastIndexOf(true) === -1) return false;
+    // Return false if bases are clean
+    const { bases } = this.state;
+    if (bases.lastIndexOf(true) === -1) return false;
     return true;
   };
 
-  //Delete more advance runner from bases
+  // Delete more advance runner from bases
   deleteAdvanceRunner = () => {
     if (!this.existRunnerOnBase) return false;
 
-    const bases = [...this.state.bases];
-    //If exist runner get his base
+    const { bases } = this.state;
+    // If exist runner get his base
     const moreAdvanceRunner = bases.lastIndexOf(true);
-    //delete more "danger" runner and return true (set to false pos in array)
+    // delete more "danger" runner and return true (set to false pos in array)
     bases[moreAdvanceRunner] = false;
     this.setState({ bases });
+    return true;
   };
 
-  //Keep a history of every turn at bat
+  // Keep a history of every turn at bat
   addNewDiceNumberToHistory = (numberDice1, numberDice2, winnerDice) => {
-    const historyDices = { ...this.state.historyDices };
+    const { historyDices } = this.state;
     historyDices[`dices${Date.now()}`] = [numberDice1, numberDice2, winnerDice];
     this.setState({ historyDices });
   };
 
-  //Initializing state for new inning
-  setNewInning = () => {
-    const { isHomeAtBat, innings } = this.state;
-    const auxIsHomeAtBat = isHomeAtBat;
-
-    if (innings >= 9 && this.gameOver()) return; //Watch out, game over
-
-    this.setState({ bases: [false, false, false] });
-    this.setState({ outs: 0 });
-    this.setState({ runs: 0 });
-    this.setState(prevState => ({
-      isHomeAtBat: !prevState.isHomeAtBat
-    }));
-
-    if (isHomeAtBat) {
-      //If home club batting add 1 inning to state and visitor start with 0 runs
-      this.setState(prevState => ({
-        innings: prevState.innings + 1
-      }));
-      this.addRunsToScore(0, innings + 1, !auxIsHomeAtBat);
-    } else this.addRunsToScore(0, innings, !auxIsHomeAtBat); //If visitor batting home club start with 0 runs
-  };
-
-  //If game over return true, else false (just call it when new inning start)
+  // If game over return true, else false (just call it when new inning start)
   gameOver = () => {
     const { isHomeAtBat } = this.state;
     if (!isHomeAtBat && this.whoIsWinning() === 1) {
       this.state.gameOver = true;
-      console.log('HC WIN');
+      // console.log('HC WIN');
       return true;
     }
     if (isHomeAtBat && this.whoIsWinning() === -1) {
       this.state.gameOver = true;
-      console.log('VISITOR WIN');
+      // console.log('VISITOR WIN');
       return true;
     }
     return false;
   };
 
-  //Return 1 if home club is winning, -1 if losing and 0 if score tied
+  // Return 1 if home club is winning, -1 if losing and 0 if score tied
   whoIsWinning = () => {
     const { score } = this.state;
+
+    /* eslint-disable no-param-reassign */
     const homeTotalRuns = score.home.runs.reduce((total, item) => (total += item), 0);
     const visitorTotalRuns = score.visitor.runs.reduce((total, item) => (total += item), 0);
+    /* eslint-disable no-param-reassign */
 
     if (homeTotalRuns > visitorTotalRuns) return 1;
     if (visitorTotalRuns > homeTotalRuns) return -1;
     return 0;
   };
 
-  //Update runs score state
+  // Update runs score state
   addRunsToScore = (runs, inning, isHomeAtBat) => {
-    let score = { ...this.state.score };
+    const { score } = this.state;
     const inningAux = inning - 1;
     if (isHomeAtBat) {
       score.home.runs[inningAux] = runs;
@@ -201,10 +213,10 @@ class Index extends React.Component {
     this.setState({ score });
   };
 
-  //Add one out to state
+  // Add one out to state
   addOneOuts = () => {
-    let outs = this.state.outs;
-    //If 2 outs switch isHomeAtBat flag, clean bases, and outs = 0
+    const { outs } = this.state;
+    // If 2 outs switch isHomeAtBat flag, clean bases, and outs = 0
     if (outs === 2) {
       this.setNewInning();
     } else {
@@ -214,12 +226,12 @@ class Index extends React.Component {
     }
   };
 
-  //Add two out to state
+  // Add two out to state
   addTwoOuts = () => {
     if (!this.existRunnerOnBase()) return;
 
-    let outs = this.state.outs;
-    //If 1 or 2 outs switch isHomeAtBat flag, clean bases, and outs = 0
+    const { outs } = this.state;
+    // If 1 or 2 outs switch isHomeAtBat flag, clean bases, and outs = 0
     if (outs === 2 || outs === 1) {
       this.setNewInning();
     } else {
@@ -230,22 +242,25 @@ class Index extends React.Component {
     }
   };
 
-  //Execute when dice number is 2, add (1,2) outs
+  // Execute when dice number is 2, add (1,2) outs
   showUpNumber2 = () => {
     if (!this.existRunnerOnBase()) {
       this.addOneOuts();
     } else this.addTwoOuts();
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.runs > prevState.runs) {
-      const { runs, innings, isHomeAtBat } = this.state;
-      this.addRunsToScore(runs, innings, isHomeAtBat);
-    }
-  }
-
   render() {
-    const { isHomeAtBat, score, historyDices, bases, outs, innings, gameOver } = this.state;
+    const {
+      isHomeAtBat,
+      score,
+      historyDices,
+      bases,
+      outs,
+      innings,
+      gameOver,
+      dice1,
+      dice2
+    } = this.state;
     const lastDices =
       historyDices[Object.keys(historyDices)[Object.keys(historyDices).length - 1]] || [];
     return (
@@ -300,8 +315,8 @@ class Index extends React.Component {
                 <Dices
                   className="pt-3"
                   onClickDices={this.rollDice}
-                  valueDice1={this.state.dice1}
-                  valueDice2={this.state.dice2}
+                  valueDice1={dice1}
+                  valueDice2={dice2}
                   gameOver={gameOver}
                 />
               </div>
@@ -319,148 +334,152 @@ class Index extends React.Component {
             </footer>
           </div>
 
-          <style jsx global>{`
-            .flex {
-              display: -webkit-box;
-              display: -moz-box;
-              display: -ms-flexbox;
-              display: -webkit-flex;
-              display: flex;
-            }
-            body {
-              font: ${basic.font};
-            }
-            .box-shadow {
-              box-shadow: 0px 1px 1px #888888;
-            }
-            .white-background {
-              background-color: white;
-            }
-            .pt-3 {
-              padding-top: 3em;
-            }
-          `}</style>
+          <style jsx global>
+            {`
+              .flex {
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+              }
+              body {
+                font: ${basic.font};
+              }
+              .box-shadow {
+                box-shadow: 0px 1px 1px #888888;
+              }
+              .white-background {
+                background-color: white;
+              }
+              .pt-3 {
+                padding-top: 3em;
+              }
+            `}
+          </style>
 
-          <style jsx>{`
-            .pt-1 {
-              padding-top: 1em;
-            }
-            .flex-colum {
-              display: flex;
-              justify-content: center;
-              flex-direction: column;
-            }
-            .wrapper {
-              display: flex;
-              flex-flow: row wrap;
-              text-align: center;
-              background-color: #e4e4e4;
-            }
-            .visitor {
-              text-align: center;
-            }
-            .wrapper > * {
-              padding: 10px;
-              flex: 1 100%;
-            }
-            .board {
-              background-color: black;
-              color: white;
-              height: 17em;
-              border-style: solid;
-              border-width: 6px;
-              border-color: white;
-              display: flex;
-              align-items: center;
-            }
-            .hit-label {
-              flex-grow: 3;
-              font: 65px arial, sans-serif;
-              font-weight: 700;
-            }
-            .hide-mobile {
-              display: none;
-            }
-            .text-center {
-              text-align: center;
-            }
-            @media all and (max-width: 390px) {
-              .wrapper aside.aside.host {
-                max-width: 20%;
-                padding-left: 2em;
+          <style jsx>
+            {`
+              .pt-1 {
+                padding-top: 1em;
               }
-              .wrapper aside.aside.visitor {
-                max-width: 60%;
-              }
-              .board {
-                height: 12em;
-              }
-            }
-            @media all and (max-width: 450px) {
-              .wrapper .aside.host {
-                max-width: 30%;
-              }
-              .wrapper .aside.visitor {
-                max-width: 50%;
-              }
-              .board {
-                height: 14em;
-              }
-            }
-            @media all and (max-width: 600px) {
-              .wrapper .aside.host {
-                max-width: 25%;
-                padding-left: 3em;
-              }
-              .aside.visitor {
-                max-width: 45%;
-              }
-              .wrapper > * {
-                padding: 1px;
-              }
-            }
-            @media all and (min-width: 600px) {
-              .aside {
-                flex: 1 auto !important;
-              }
-              .flex-colum.hide-mobile {
+              .flex-colum {
                 display: flex;
                 justify-content: center;
                 flex-direction: column;
               }
-            }
-            @media all and (max-width: 820px) {
-              .board {
-                margin-top: 1em;
-              }
-            }
-            @media all and (min-width: 820px) {
-              .main {
+              .wrapper {
                 display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-
-                flex: 3 0px !important;
+                flex-flow: row wrap;
+                text-align: center;
+                background-color: #e4e4e4;
               }
               .visitor {
-                order: 1 !important;
+                text-align: center;
               }
-              .main {
-                order: 2 !important;
+              .wrapper > * {
+                padding: 10px;
+                flex: 1 100%;
               }
-              .host {
-                order: 3 !important;
+              .board {
+                background-color: black;
+                color: white;
+                height: 17em;
+                border-style: solid;
+                border-width: 6px;
+                border-color: white;
+                display: flex;
+                align-items: center;
               }
-              .footer {
-                order: 4 !important;
+              .hit-label {
+                flex-grow: 3;
+                font: 65px arial, sans-serif;
+                font-weight: 700;
               }
-            }
-            @media all and (min-width: 1000px) {
-              .wrapper {
-                padding: 0 3%;
+              .hide-mobile {
+                display: none;
               }
-            }
-          `}</style>
+              .text-center {
+                text-align: center;
+              }
+              @media all and (max-width: 390px) {
+                .wrapper aside.aside.host {
+                  max-width: 20%;
+                  padding-left: 2em;
+                }
+                .wrapper aside.aside.visitor {
+                  max-width: 60%;
+                }
+                .board {
+                  height: 12em;
+                }
+              }
+              @media all and (max-width: 450px) {
+                .wrapper .aside.host {
+                  max-width: 30%;
+                }
+                .wrapper .aside.visitor {
+                  max-width: 50%;
+                }
+                .board {
+                  height: 14em;
+                }
+              }
+              @media all and (max-width: 600px) {
+                .wrapper .aside.host {
+                  max-width: 25%;
+                  padding-left: 3em;
+                }
+                .aside.visitor {
+                  max-width: 45%;
+                }
+                .wrapper > * {
+                  padding: 1px;
+                }
+              }
+              @media all and (min-width: 600px) {
+                .aside {
+                  flex: 1 auto !important;
+                }
+                .flex-colum.hide-mobile {
+                  display: flex;
+                  justify-content: center;
+                  flex-direction: column;
+                }
+              }
+              @media all and (max-width: 820px) {
+                .board {
+                  margin-top: 1em;
+                }
+              }
+              @media all and (min-width: 820px) {
+                .main {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+
+                  flex: 3 0px !important;
+                }
+                .visitor {
+                  order: 1 !important;
+                }
+                .main {
+                  order: 2 !important;
+                }
+                .host {
+                  order: 3 !important;
+                }
+                .footer {
+                  order: 4 !important;
+                }
+              }
+              @media all and (min-width: 1000px) {
+                .wrapper {
+                  padding: 0 3%;
+                }
+              }
+            `}
+          </style>
         </ErrorBoundary>
       </React.Fragment>
     );

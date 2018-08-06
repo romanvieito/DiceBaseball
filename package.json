@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "eslint": "eslint ./components --ignore-pattern node_modules/",
-    "eslint:fix": "eslint --fix ./components --ignore-pattern node_modules/",
+    "eslint": "eslint ./components ./pages/index.js --ignore-pattern node_modules/",
+    "eslint:fix": "eslint --fix ./components ./pages/index.js --ignore-pattern node_modules/",
     "precommit": "npm run eslint",
     "prepush": "npm run eslint",
     "test": "echo \"Error: no test specified\" && exit 1"
