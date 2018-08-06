@@ -259,13 +259,13 @@ class Index extends React.Component {
               </div>
             </header>
             <article className="main">
+              <div>
+                <ScoreTable {...score} innings={innings} className="white-background" />
+              </div>
               <div className="board">
                 <span className="hit-label">
                   {!gameOver ? batDictionary(lastDices[lastDices.length - 1]) : 'GAME OVER'}
                 </span>
-              </div>
-              <div>
-                <ScoreTable {...score} innings={innings} className="white-background" />
               </div>
             </article>
 
@@ -380,6 +380,14 @@ class Index extends React.Component {
             .text-center {
               text-align: center;
             }
+            @media all and (max-width: 600px) {
+              .aside.host {
+                max-width: 30%;
+              }
+              .aside.visitor {
+                max-width: 60%;
+              }
+            }
             @media all and (min-width: 600px) {
               .aside {
                 flex: 1 auto !important;
@@ -388,6 +396,11 @@ class Index extends React.Component {
                 display: flex;
                 justify-content: center;
                 flex-direction: column;
+              }
+            }
+            @media all and (max-width: 820px) {
+              .board {
+                margin-top: 1em;
               }
             }
             @media all and (min-width: 820px) {
@@ -413,7 +426,7 @@ class Index extends React.Component {
             }
             @media all and (min-width: 1000px) {
               .wrapper {
-                padding: 0 9%;
+                padding: 0 3%;
               }
             }
           `}</style>
