@@ -263,6 +263,7 @@ class Index extends React.Component {
     } = this.state;
     const lastDices =
       historyDices[Object.keys(historyDices)[Object.keys(historyDices).length - 1]] || [];
+    const teamNamesLong = { hc: 'Home Club', vis: 'Visitor' };
     return (
       <React.Fragment>
         <ErrorBoundary>
@@ -270,7 +271,7 @@ class Index extends React.Component {
             <header className="header">
               <h4>BaseDice</h4>
               <div>
-                At bat <b>{isHomeAtBat ? 'Home Club' : 'Visitor'}</b>.
+                At bat <b>{isHomeAtBat ? teamNamesLong.hc : teamNamesLong.vis}</b>.
               </div>
             </header>
             <article className="main">
@@ -282,7 +283,9 @@ class Index extends React.Component {
                   {!gameOver ? (
                     batDictionary(lastDices[lastDices.length - 1])
                   ) : (
-                    <span>{this.whoIsWinning() === 1 ? 'HOME CLUB' : 'VISITOR'} WIN!!!</span>
+                    <span className="uppercase">
+                      {this.whoIsWinning() === 1 ? teamNamesLong.hc : teamNamesLong.vis} win!!!
+                    </span>
                   )}
                 </span>
               </div>
@@ -401,6 +404,9 @@ class Index extends React.Component {
               }
               .text-center {
                 text-align: center;
+              }
+              .uppercase {
+                text-transform: uppercase;
               }
               @media all and (max-width: 390px) {
                 .wrapper aside.aside.host {

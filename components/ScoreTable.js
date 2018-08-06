@@ -32,6 +32,7 @@ class ScoreTable extends React.Component {
   render() {
     const { visitor, home, className } = this.props;
     const { inningsNumbers } = this.state;
+    const teamNamesLong = { hc: 'Home', vis: 'Visitor' };
 
     return (
       <React.Fragment>
@@ -50,7 +51,8 @@ class ScoreTable extends React.Component {
             <tbody>
               <tr className={visitor.runs.length > home.runs.length ? 'back-color-inn-play' : ''}>
                 <th className="team-name" scope="row">
-                  Visitor
+                  <span className="hide-on-tiny-screen">{teamNamesLong.vis}</span>
+                  <span className="hide-on-big-screen">vis</span>
                 </th>
                 {visitor.runs.map((value, i) => (
                   <td className="no-border" key={i}>
@@ -60,7 +62,8 @@ class ScoreTable extends React.Component {
               </tr>
               <tr className={visitor.runs.length === home.runs.length ? 'back-color-inn-play' : ''}>
                 <th className="team-name" scope="row">
-                  Home
+                  <span className="hide-on-tiny-screen">{teamNamesLong.hc}</span>
+                  <span className="hide-on-big-screen">hc</span>
                 </th>
                 {home.runs.map((value, i) => (
                   <td className="no-border" key={i}>
@@ -119,12 +122,19 @@ class ScoreTable extends React.Component {
             .team-name {
               text-align: left;
               font-weight: 100;
+              text-transform: uppercase;
             }
             .no-border {
               border: 0;
             }
             .back-color-inn-play td:last-child {
               background-color: #edeef0;
+            }
+            .hide-on-big-screen {
+              display: none;
+            }
+            .hide-on-tiny-screen {
+              display: initial;
             }
             @media all and (max-width: 380px) {
               table th,
@@ -136,6 +146,12 @@ class ScoreTable extends React.Component {
               th,
               td {
                 padding: 0.3em 0.4em;
+              }
+              .hide-on-tiny-screen {
+                display: none;
+              }
+              .hide-on-big-screen {
+                display: initial;
               }
             }
           `}
