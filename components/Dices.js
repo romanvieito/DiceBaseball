@@ -23,10 +23,10 @@ class Dices extends React.Component {
   };
 
   render() {
-    if (this.props.gameOver) {
+    const { valueDice1, valueDice2, className, onClickDices, gameOver } = this.props;
+    if (gameOver) {
       return null;
     }
-    const { valueDice1, valueDice2, className, onClickDices } = this.props;
     return (
       <>
         <div>
