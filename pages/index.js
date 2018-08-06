@@ -269,7 +269,7 @@ class Index extends React.Component {
         <ErrorBoundary>
           <div className="wrapper">
             <header className="header">
-              <h4>BaseDice</h4>
+              <h4>Simpler Baseball</h4>
               <div>
                 At bat <b>{isHomeAtBat ? teamNamesLong.hc : teamNamesLong.vis}</b>.
               </div>

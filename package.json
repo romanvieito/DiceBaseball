@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
+    "start": "next",
     "eslint": "eslint ./components ./pages/index.js --ignore-pattern node_modules/",
     "eslint:fix": "eslint --fix ./components ./pages/index.js --ignore-pattern node_modules/",
     "precommit": "npm run eslint",
