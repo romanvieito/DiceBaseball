@@ -13,16 +13,20 @@ class ScoreTable extends React.Component {
     inningsNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   };
 
-  componentDidUpdate(previousProps) {
-    if (this.props.visitor.runs.length > 9) {
-      if (this.props.visitor.runs.length !== this.state.inningsNumbers.length) {
+  componentDidUpdate() {
+    const { visitor } = this.props;
+    const { inningsNumbers } = this.state;
+    if (visitor.runs.length > 9) {
+      if (visitor.runs.length !== inningsNumbers.length) {
         let inningsNumbersAux = [];
-        const { visitor } = this.props;
         inningsNumbersAux = visitor.runs.map((value, i) => i + 1);
-        this.setState({ inningsNumbers: inningsNumbersAux });
-        console.log("q");
+        this.updateState(inningsNumbersAux);
       }
     }
+  }
+
+  updateState(inningsNumbersAux) {
+    this.setState({ inningsNumbers: inningsNumbersAux });
   }
 
   render() {
