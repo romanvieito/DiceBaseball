@@ -264,7 +264,11 @@ class Index extends React.Component {
               </div>
               <div className="board">
                 <span className="hit-label">
-                  {!gameOver ? batDictionary(lastDices[lastDices.length - 1]) : 'GAME OVER'}
+                  {!gameOver ? (
+                    batDictionary(lastDices[lastDices.length - 1])
+                  ) : (
+                    <span>{this.whoIsWinning() ? 'HOME CLUB' : 'VISITOR'} WIN!!!</span>
+                  )}
                 </span>
               </div>
             </article>
