@@ -45,10 +45,10 @@ class Index extends React.Component {
 
     if (innings >= 9 && this.gameOver()) return; // Watch out, game over
 
-    this.setState({ bases: [false, false, false] });
-    this.setState({ outs: 0 });
-    this.setState({ runs: 0 });
     this.setState(prevState => ({
+      bases: [false, false, false],
+      outs: 0,
+      runs: 0,
       isHomeAtBat: !prevState.isHomeAtBat
     }));
 
