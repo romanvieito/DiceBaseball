@@ -54,14 +54,17 @@ class Index extends React.Component {
   //Adding hits to the score
   addingHits = diceNumber => {
     if (diceNumber < 3) return;
-    const isHomeAtBat = this.state.isHomeAtBat;
+    const { isHomeAtBat, innings } = this.state;
     let score = { ...this.state.score };
 
     if (isHomeAtBat) {
       score.home.hitsTotal++;
     } else score.visitor.hitsTotal++;
 
-    this.setState({ score });
+    this.setState({ score }, () => {
+      //Checking if visitor lose being on the field
+      if (innings >= 9 && isHomeAtBat && this.whoIsWinning() === 1) this.state.gameOver = true;
+    });
   };
 
   //Add runs to score or outs (states)
@@ -239,10 +242,6 @@ class Index extends React.Component {
       const { runs, innings, isHomeAtBat } = this.state;
       this.addRunsToScore(runs, innings, isHomeAtBat);
     }
-
-    // if (this.state.innings >= 9 && this.state.runs !== prevState.runs) {
-    //   this.gameOver();
-    // }
   }
 
   render() {
