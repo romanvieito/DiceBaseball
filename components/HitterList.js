@@ -34,14 +34,14 @@ class HitterList extends React.Component {
             table {
               border-collapse: collapse;
               width: 100%;
-              color: #838383;
+              color: #6c6d6f;
               font-size: 11px;
             }
             th,
             td {
               padding: 3px 8px;
               text-align: left;
-              border-bottom: 1px solid #a1a4a6;
+              border-bottom: 1px solid #f1f2f3;
             }
           `}
         </style>

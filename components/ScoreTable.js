@@ -48,7 +48,7 @@ class ScoreTable extends React.Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr className={visitor.runs.length > home.runs.length ? 'back-color-inn-play' : ''}>
                 <th className="team-name" scope="row">
                   Visitor
                 </th>
@@ -58,7 +58,7 @@ class ScoreTable extends React.Component {
                   </td>
                 ))}
               </tr>
-              <tr>
+              <tr className={visitor.runs.length === home.runs.length ? 'back-color-inn-play' : ''}>
                 <th className="team-name" scope="row">
                   Home
                 </th>
@@ -123,7 +123,9 @@ class ScoreTable extends React.Component {
             .no-border {
               border: 0;
             }
-
+            .back-color-inn-play td:last-child {
+              background-color: #edeef0;
+            }
             @media all and (max-width: 380px) {
               table th,
               table td {
