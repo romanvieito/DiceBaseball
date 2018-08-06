@@ -26,6 +26,7 @@ class Index extends React.Component {
     bases: [false, false, false],
     dice1: 1,
     dice2: 1,
+    gameOver: false,
     isHomeAtBat: false
   };
 
@@ -164,10 +165,12 @@ class Index extends React.Component {
   gameOver = () => {
     const { isHomeAtBat } = this.state;
     if (!isHomeAtBat && this.whoIsWinning() === 1) {
+      this.state.gameOver = true;
       console.log('HC WIN');
       return true;
     }
     if (isHomeAtBat && this.whoIsWinning() === -1) {
+      this.state.gameOver = true;
       console.log('VISITOR WIN');
       return true;
     }
@@ -243,7 +246,7 @@ class Index extends React.Component {
   }
 
   render() {
-    const { isHomeAtBat, score, historyDices, bases, outs, innings } = this.state;
+    const { isHomeAtBat, score, historyDices, bases, outs, innings, gameOver } = this.state;
     const lastDices =
       historyDices[Object.keys(historyDices)[Object.keys(historyDices).length - 1]] || [];
     return (
@@ -258,7 +261,9 @@ class Index extends React.Component {
             </header>
             <article className="main">
               <div className="board">
-                <span className="hit-label">{batDictionary(lastDices[lastDices.length - 1])}</span>
+                <span className="hit-label">
+                  {!gameOver ? batDictionary(lastDices[lastDices.length - 1]) : 'GAME OVER'}
+                </span>
               </div>
               <div>
                 <ScoreTable {...score} innings={innings} className="white-background" />
@@ -294,6 +299,7 @@ class Index extends React.Component {
                   onClickDices={this.rollDice}
                   valueDice1={this.state.dice1}
                   valueDice2={this.state.dice2}
+                  gameOver={gameOver}
                 />
               </div>
             </aside>

@@ -10,6 +10,7 @@ import DiceImg6 from '../static/6small.gif';
 
 class Dices extends React.Component {
   static propTypes = {
+    gameOver: propTypes.bool,
     className: propTypes.string,
     onClickDices: propTypes.func,
     valueDice1: propTypes.number,
@@ -22,6 +23,9 @@ class Dices extends React.Component {
   };
 
   render() {
+    if (this.props.gameOver) {
+      return null;
+    }
     const { valueDice1, valueDice2, className, onClickDices } = this.props;
     return (
       <>
