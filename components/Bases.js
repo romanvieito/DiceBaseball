@@ -45,6 +45,16 @@ class Bases extends React.Component {
             .on-base {
               background: #7c7c7c;
             }
+            @media all and (max-width: 450px) {
+              div.bases {
+                left: 0%;
+              }
+            }
+            @media all and (max-width: 600px) {
+              .bases {
+                left: 5%;
+              }
+            }
             @media all and (min-width: 820px) {
               .bases {
                 left: -4%;

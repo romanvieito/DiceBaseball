@@ -102,6 +102,19 @@ class ScoreTable extends React.Component {
             .no-border {
               border: 0;
             }
+
+            @media all and (max-width: 380px) {
+              table th,
+              table td {
+                padding: 0.3em 0.23em;
+              }
+            }
+            @media all and (max-width: 470px) {
+              th,
+              td {
+                padding: 0.3em 0.4em;
+              }
+            }
           `}
         </style>
       </React.Fragment>

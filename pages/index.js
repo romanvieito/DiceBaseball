@@ -380,12 +380,39 @@ class Index extends React.Component {
             .text-center {
               text-align: center;
             }
-            @media all and (max-width: 600px) {
-              .aside.host {
+            @media all and (max-width: 390px) {
+              .wrapper aside.aside.host {
+                max-width: 20%;
+                padding-left: 2em;
+              }
+              .wrapper aside.aside.visitor {
+                max-width: 60%;
+              }
+              .board {
+                height: 12em;
+              }
+            }
+            @media all and (max-width: 450px) {
+              .wrapper .aside.host {
                 max-width: 30%;
               }
+              .wrapper .aside.visitor {
+                max-width: 50%;
+              }
+              .board {
+                height: 14em;
+              }
+            }
+            @media all and (max-width: 600px) {
+              .wrapper .aside.host {
+                max-width: 25%;
+                padding-left: 3em;
+              }
               .aside.visitor {
-                max-width: 60%;
+                max-width: 45%;
+              }
+              .wrapper > * {
+                padding: 1px;
               }
             }
             @media all and (min-width: 600px) {
