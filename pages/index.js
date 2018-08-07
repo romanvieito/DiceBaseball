@@ -364,6 +364,9 @@ class Index extends React.Component {
               .pt-1 {
                 padding-top: 1em;
               }
+              .mt-1 {
+                margin-top: 1em;
+              }
               .justify-content-end {
                 justify-content: flex-end;
               }

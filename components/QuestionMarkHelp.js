@@ -7,6 +7,7 @@
 
 import React from 'react';
 import propTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 import Img from './Img';
 import QuestionMark from '../static/question-mark-button.svg';
@@ -21,16 +22,39 @@ class QuestionMarkHelp extends React.Component {
     return (
       <div className={className}>
         <div className="flex justify-content-end">
-          <button type="button" className="question-mark pt-1" onClick={this.handleOpenModal}>
+          <button
+            data-tip
+            data-for="global"
+            type="button"
+            className="question-mark mt-1"
+            onClick={this.handleOpenModal}
+          >
             <Img src={QuestionMark} alt="Question" />
           </button>
         </div>
-
+        <ReactTooltip id="global" type="dark" effect="solid" aria-haspopup="true" role="help">
+          <p>Batting Help</p>
+          <div>(smaller dice win)</div>
+          <ul style={{ listStyleType: 'none' }}>
+            <li>1: Out</li>
+            <li>2: Out or Double Play</li>
+            <li>3: Hit</li>
+            <li>4: Double</li>
+            <li>5: Triple</li>
+            <li>6: Home Run</li>
+          </ul>
+        </ReactTooltip>
         <style jsx>
           {`
             .question-mark {
               width: 30px;
-              // padding-right: 0.7em;
+            }
+            button {
+              border: none;
+              background: inherit;
+            }
+            ul li {
+              text-align: left;
             }
           `}
         </style>
