@@ -1,11 +1,10 @@
 import React from 'react';
 import HitterList from '../components/HitterList';
 import Dices from '../components/Dices';
-import Img from '../components/Img';
 import ScoreAndBases from '../components/ScoreAndBases';
 import ScoreTable from '../components/ScoreTable';
+import QuestionMarkHelp from '../components/QuestionMarkHelp';
 import ErrorBoundary from '../components/ErrorBoundary';
-import QuestionMark from '../static/question-mark-button.svg';
 
 import { drawBases, batDictionary } from '../helpers/batting';
 import basic from '../helpers/theme';
@@ -317,13 +316,8 @@ class Index extends React.Component {
                   <HitterList teamName="Home Club" />
                 </div>
               </div>
-
               <div>
-                <div className="flex justify-content-end">
-                  <span className="question-mark pt-1">
-                    <Img src={QuestionMark} alt="Question" />
-                  </span>
-                </div>
+                <QuestionMarkHelp />
                 <Dices
                   className="pt-3"
                   onClickDices={this.rollDice}
@@ -367,14 +361,17 @@ class Index extends React.Component {
               .pt-3 {
                 padding-top: 3em;
               }
+              .pt-1 {
+                padding-top: 1em;
+              }
+              .justify-content-end {
+                justify-content: flex-end;
+              }
             `}
           </style>
 
           <style jsx>
             {`
-              .pt-1 {
-                padding-top: 1em;
-              }
               .my-05 {
                 margin-top: 0.5em;
                 margin-bottom: 0.5em;
@@ -418,15 +415,8 @@ class Index extends React.Component {
               .text-center {
                 text-align: center;
               }
-              .question-mark {
-                width: 15px;
-                // padding-right: 0.7em;
-              }
               .uppercase {
                 text-transform: uppercase;
-              }
-              .justify-content-end {
-                justify-content: flex-end;
               }
               @media all and (max-width: 390px) {
                 .wrapper aside.aside.host {
