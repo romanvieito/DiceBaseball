@@ -1,9 +1,12 @@
 import React from 'react';
 import HitterList from '../components/HitterList';
 import Dices from '../components/Dices';
+import Img from '../components/Img';
 import ScoreAndBases from '../components/ScoreAndBases';
 import ScoreTable from '../components/ScoreTable';
 import ErrorBoundary from '../components/ErrorBoundary';
+import QuestionMark from '../static/question-mark-button.svg';
+
 import { drawBases, batDictionary } from '../helpers/batting';
 import basic from '../helpers/theme';
 
@@ -314,7 +317,13 @@ class Index extends React.Component {
                   <HitterList teamName="Home Club" />
                 </div>
               </div>
-              <div className="pt-1">
+
+              <div>
+                <div className="flex justify-content-end">
+                  <span className="question-mark pt-1">
+                    <Img src={QuestionMark} alt="Question" />
+                  </span>
+                </div>
                 <Dices
                   className="pt-3"
                   onClickDices={this.rollDice}
@@ -409,12 +418,19 @@ class Index extends React.Component {
               .text-center {
                 text-align: center;
               }
+              .question-mark {
+                width: 15px;
+                // padding-right: 0.7em;
+              }
               .uppercase {
                 text-transform: uppercase;
               }
+              .justify-content-end {
+                justify-content: flex-end;
+              }
               @media all and (max-width: 390px) {
                 .wrapper aside.aside.host {
-                  max-width: 20%;
+                  max-width: 25%;
                   padding-left: 2em;
                 }
                 .wrapper aside.aside.visitor {
