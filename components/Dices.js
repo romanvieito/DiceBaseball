@@ -47,7 +47,7 @@ class Dices extends React.Component {
               {valueDice1 === 5 ? <NormalImg src={DiceImg5} alt={valueDice1.toString()} /> : null}
               {valueDice1 === 6 ? <NormalImg src={DiceImg6} alt={valueDice1.toString()} /> : null}
             </div>
-            <div className="second-dice ml-1">
+            <div className="second-dice ml-03">
               {valueDice2 === 1 ? <NormalImg src={DiceImg1} alt={valueDice2.toString()} /> : null}
               {valueDice2 === 2 ? <NormalImg src={DiceImg2} alt={valueDice2.toString()} /> : null}
               {valueDice2 === 3 ? <NormalImg src={DiceImg3} alt={valueDice2.toString()} /> : null}
@@ -63,8 +63,8 @@ class Dices extends React.Component {
                   height: 88px;
                   cursor: pointer;
                 }
-                .ml-1 {
-                  margin-left: 1em;
+                .ml-03 {
+                  margin-left: 0.3em;
                 }
               `}
             </style>
