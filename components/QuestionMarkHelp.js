@@ -26,7 +26,7 @@ class QuestionMarkHelp extends React.Component {
             data-tip
             data-for="global"
             type="button"
-            className="question-mark mr--1"
+            className="question-mark"
             onClick={this.handleOpenModal}
           >
             <Img src={QuestionMark} alt="Question" />
@@ -48,8 +48,7 @@ class QuestionMarkHelp extends React.Component {
           {`
             .question-mark {
               width: 40px;
-            }
-            .mr--1 {
+              margin-top: 0.7em;
               margin-right: -1em;
             }
             button {
@@ -58,6 +57,11 @@ class QuestionMarkHelp extends React.Component {
             }
             ul li {
               text-align: left;
+            }
+            @media all and (min-width: 800px) {
+              .question-mark {
+                width: 30px;
+              }
             }
           `}
         </style>
