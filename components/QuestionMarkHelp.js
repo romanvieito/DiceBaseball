@@ -32,7 +32,7 @@ class QuestionMarkHelp extends React.Component {
             <Img src={QuestionMark} alt="Question" />
           </button>
         </div>
-        <ReactTooltip id="global" type="dark" effect="solid" aria-haspopup="true" role="help">
+        <ReactTooltip id="global" type="dark" effect="solid" aria-haspopup="true" role="{role}">
           <p>Batting Help</p>
           <div>(smaller dice win)</div>
           <ul style={{ listStyleType: 'none' }}>

@@ -11,6 +11,12 @@
     "react/require-default-props": [0],
     "react/no-array-index-key": [0],
     "no-return-assign": [0],
+    "jsx-a11y/aria-role": [
+      2,
+      {
+        "ignoreNonDOM": true
+      }
+    ],
     "jsx-a11y/anchor-is-valid": [0]
   }
 }

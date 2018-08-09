@@ -4,9 +4,10 @@ import Dices from '../components/Dices';
 import ScoreAndBases from '../components/ScoreAndBases';
 import ScoreTable from '../components/ScoreTable';
 import QuestionMarkHelp from '../components/QuestionMarkHelp';
+import Board from '../components/Board';
 import ErrorBoundary from '../components/ErrorBoundary';
 
-import { drawBases, batDictionary } from '../helpers/batting';
+import { drawBases } from '../helpers/batting';
 import basic from '../helpers/theme';
 
 class Index extends React.Component {
@@ -248,7 +249,9 @@ class Index extends React.Component {
   showUpNumber2 = () => {
     if (!this.existRunnerOnBase()) {
       this.addOneOuts();
-    } else this.addTwoOuts();
+    } else {
+      this.addTwoOuts();
+    }
   };
 
   render() {
@@ -263,9 +266,10 @@ class Index extends React.Component {
       dice1,
       dice2
     } = this.state;
-    const lastDices =
-      historyDices[Object.keys(historyDices)[Object.keys(historyDices).length - 1]] || [];
+
     const teamNamesLong = { hc: 'Home Club', vis: 'Visitor' };
+    const lastDice =
+      historyDices[Object.keys(historyDices)[Object.keys(historyDices).length - 1]] || [];
     return (
       <React.Fragment>
         <ErrorBoundary>
@@ -280,17 +284,14 @@ class Index extends React.Component {
               <div>
                 <ScoreTable {...score} innings={innings} className="white-background" />
               </div>
-              <div className="board">
-                <span className="hit-label">
-                  {!gameOver ? (
-                    batDictionary(lastDices[lastDices.length - 1])
-                  ) : (
-                    <span className="uppercase">
-                      {this.whoIsWinning() === 1 ? teamNamesLong.hc : teamNamesLong.vis} win!!!
-                    </span>
-                  )}
-                </span>
-              </div>
+
+              <Board
+                teamNames={teamNamesLong}
+                gameOver={gameOver}
+                dice={lastDice[2]}
+                outs={outs}
+                whoIsWinning={this.whoIsWinning}
+              />
             </article>
 
             <aside className="aside visitor">
@@ -370,6 +371,9 @@ class Index extends React.Component {
               .justify-content-end {
                 justify-content: flex-end;
               }
+              .uppercase {
+                text-transform: uppercase;
+              }
             `}
           </style>
 
@@ -397,29 +401,11 @@ class Index extends React.Component {
                 padding: 10px;
                 flex: 1 100%;
               }
-              .board {
-                background-color: black;
-                color: white;
-                height: 17em;
-                border-style: solid;
-                border-width: 6px;
-                border-color: white;
-                display: flex;
-                align-items: center;
-              }
-              .hit-label {
-                flex-grow: 3;
-                font: 65px arial, sans-serif;
-                font-weight: 700;
-              }
               .hide-mobile {
                 display: none;
               }
               .text-center {
                 text-align: center;
-              }
-              .uppercase {
-                text-transform: uppercase;
               }
               @media all and (max-width: 390px) {
                 .wrapper aside.aside.host {
@@ -429,9 +415,6 @@ class Index extends React.Component {
                 .wrapper aside.aside.visitor {
                   max-width: 60%;
                 }
-                .board {
-                  height: 12em;
-                }
               }
               @media all and (max-width: 450px) {
                 .wrapper .aside.host {
@@ -439,9 +422,6 @@ class Index extends React.Component {
                 }
                 .wrapper .aside.visitor {
                   max-width: 50%;
-                }
-                .board {
-                  height: 14em;
                 }
               }
               @media all and (max-width: 600px) {
@@ -464,11 +444,6 @@ class Index extends React.Component {
                   display: flex;
                   justify-content: center;
                   flex-direction: column;
-                }
-              }
-              @media all and (max-width: 820px) {
-                .board {
-                  margin-top: 1em;
                 }
               }
               @media all and (min-width: 820px) {
