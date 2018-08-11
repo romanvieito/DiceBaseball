@@ -34,10 +34,13 @@ class Index extends React.Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { runs } = this.state;
+    const { runs, innings, isHomeAtBat } = this.state;
     if (runs > prevState.runs) {
-      const { innings, isHomeAtBat } = this.state;
       this.addRunsToScore(runs, innings, isHomeAtBat);
+    }
+    if (isHomeAtBat !== prevState.isHomeAtBat) {
+      // At the beginning of the inning cpu try to bat
+      this.cpuBatting();
     }
   }
 
@@ -83,6 +86,18 @@ class Index extends React.Component {
     // Adding Outs and Runs to state
     this.addingOutsAndRuns(dicenumber, bases);
     this.addingHits(dicenumber);
+
+    this.cpuBatting();
+  };
+
+  cpuBatting = () => {
+    const { isHomeAtBat } = this.state;
+
+    if (!isHomeAtBat) return;
+
+    setTimeout(() => {
+      this.rollDice();
+    }, 2000);
   };
 
   // Adding hits to the score

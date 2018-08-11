@@ -8,6 +8,8 @@ import DiceImg4 from '../static/4small.gif';
 import DiceImg5 from '../static/5small.gif';
 import DiceImg6 from '../static/6small.gif';
 
+import LoadingMessage from './LoadingMessage';
+
 class Dices extends React.Component {
   static propTypes = {
     gameOver: propTypes.bool,
@@ -17,13 +19,34 @@ class Dices extends React.Component {
     valueDice2: propTypes.number
   };
 
-  handleKeyDown = event => {
-    const { onClickDices } = this.props;
-    if (event.keyCode === 13) onClickDices();
+  state = {
+    isBusy: false
   };
 
-  render() {
-    const { valueDice1, valueDice2, className, onClickDices, gameOver } = this.props;
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
+  onClickDicesEvent = () => {
+    const { onClickDices } = this.props;
+
+    this.setState({ isBusy: true });
+    onClickDices();
+    this.timer = this.enableMessage();
+  };
+
+  handleKeyDown = event => {
+    if (event.keyCode === 13) this.onClickDicesEvent();
+  };
+
+  enableMessage() {
+    setTimeout(() => {
+      this.setState({ isBusy: false });
+    }, 500);
+  }
+
+  renderDice() {
+    const { valueDice1, valueDice2, className, gameOver } = this.props;
     if (gameOver) {
       return null;
     }
@@ -35,7 +58,7 @@ class Dices extends React.Component {
             className={`dices ${className}`}
             tabIndex="0"
             role="presentation"
-            onClick={onClickDices}
+            onClick={this.onClickDicesEvent}
             onKeyDown={this.handleKeyDown}
           >
             {/* eslint-disable jsx-a11y/no-noninteractive-tabindex */}
@@ -72,6 +95,16 @@ class Dices extends React.Component {
         </div>
       </>
     );
+  }
+
+  render() {
+    const { isBusy } = this.state;
+
+    if (isBusy) {
+      return <LoadingMessage />;
+    }
+
+    return this.renderDice();
   }
 }
 

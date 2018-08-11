@@ -22,7 +22,7 @@ class Board extends React.Component {
   };
 
   state = {
-    label: 'Start',
+    label: 'Roll the dices',
     /* eslint-disable react/no-unused-state */
     cachedOuts: 0
   };
