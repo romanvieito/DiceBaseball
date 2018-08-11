@@ -340,6 +340,7 @@ class Index extends React.Component {
                   onClickDices={this.rollDice}
                   valueDice1={dice1}
                   valueDice2={dice2}
+                  isHomeAtBat={isHomeAtBat}
                   gameOver={gameOver}
                 />
               </div>
