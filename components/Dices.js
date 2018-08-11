@@ -55,7 +55,13 @@ class Dices extends React.Component {
     }
     return (
       <>
-        <div>{isHomeAtBat ? <Wave text="CPU turn" /> : 'Your turn'}</div>
+        <div>
+          {isHomeAtBat ? (
+            <Wave text="Cpu Turn" effect="jump" effectChange={1.0} effectDuration={0.3} />
+          ) : (
+            'Your Turn'
+          )}
+        </div>
         {/* eslint-disable jsx-a11y/no-noninteractive-tabindex */}
         <div
           className={`dices no-focus ${className}`}
