@@ -85,12 +85,22 @@ class HittingAnottation extends React.Component {
 
   render() {
     const { teamName } = this.props;
-    const { battingVisitor, battingHome } = this.state;
+    const { battingVisitor, battingHome, lastVisHitter, lastHomeHitter, isHomeAtBat } = this.state;
     const battingList = teamName === 'Visitor' ? battingVisitor : battingHome;
+
+    let lastHitter = '';
+    if (isHomeAtBat) {
+      lastHitter = teamName !== 'Visitor' ? lastHomeHitter : '';
+    } else lastHitter = teamName === 'Visitor' ? lastVisHitter : '';
+
     return (
       <React.Fragment>
         <div className="batting">
-          <HitterList teamName={teamName} battingList={battingList} />
+          <HitterList
+            teamName={teamName}
+            battingList={battingList}
+            lastHitter={lastHitter.toString()}
+          />
         </div>
       </React.Fragment>
     );
