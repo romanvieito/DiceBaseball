@@ -91,9 +91,9 @@ class Index extends React.Component {
   };
 
   cpuBatting = () => {
-    const { isHomeAtBat } = this.state;
+    const { isHomeAtBat, gameOver } = this.state;
 
-    if (!isHomeAtBat) return;
+    if (!isHomeAtBat || gameOver) return;
 
     setTimeout(() => {
       this.rollDice();
@@ -112,7 +112,8 @@ class Index extends React.Component {
 
     this.setState({ score }, () => {
       // Checking if visitor lose being on the field
-      if (innings >= 9 && isHomeAtBat && this.whoIsWinning() === 1) this.state.gameOver = true;
+      if (innings >= 9 && isHomeAtBat && this.whoIsWinning() === 1)
+        this.setState({ gameOver: true });
     });
   };
 
@@ -195,12 +196,12 @@ class Index extends React.Component {
   gameOver = () => {
     const { isHomeAtBat } = this.state;
     if (!isHomeAtBat && this.whoIsWinning() === 1) {
-      this.state.gameOver = true;
+      this.setState({ gameOver: true });
       // console.log('HC WIN');
       return true;
     }
     if (isHomeAtBat && this.whoIsWinning() === -1) {
-      this.state.gameOver = true;
+      this.setState({ gameOver: true });
       // console.log('VISITOR WIN');
       return true;
     }
