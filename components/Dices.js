@@ -83,7 +83,7 @@ class Dices extends React.Component {
               .dices {
                 display: flex;
                 justify-content: center;
-                height: 88px;
+                height: 65px;
                 cursor: pointer;
               }
               .ml-03 {
