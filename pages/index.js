@@ -317,7 +317,7 @@ class Index extends React.Component {
               <div className="flex-colum hide-mobile white-background">
                 <div>
                   <HitterAnottation
-                    teamName="Visitor"
+                    teamName={teamNamesLong.vis}
                     lastKeyHistoryDice={lastKeyHistoryDice}
                     dice={lastDice[2]}
                     isHomeAtBat={isHomeAtBat}
@@ -338,7 +338,12 @@ class Index extends React.Component {
             <aside className="aside host">
               <div className="flex-colum hide-mobile white-background">
                 <div>
-                  <HitterList teamName="Home Club" />
+                  <HitterAnottation
+                    teamName={teamNamesLong.hc}
+                    lastKeyHistoryDice={lastKeyHistoryDice}
+                    dice={lastDice[2]}
+                    isHomeAtBat={isHomeAtBat}
+                  />
                 </div>
               </div>
               <div>

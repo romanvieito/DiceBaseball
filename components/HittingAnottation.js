@@ -23,7 +23,19 @@ class HittingAnottation extends React.Component {
       8: { AB: 0, H: 0 },
       9: { AB: 0, H: 0 }
     },
-    lastVisHitter: 1
+    lastVisHitter: 1,
+    battingHome: {
+      1: { AB: 0, H: 0 },
+      2: { AB: 0, H: 0 },
+      3: { AB: 0, H: 0 },
+      4: { AB: 0, H: 0 },
+      5: { AB: 0, H: 0 },
+      6: { AB: 0, H: 0 },
+      7: { AB: 0, H: 0 },
+      8: { AB: 0, H: 0 },
+      9: { AB: 0, H: 0 }
+    },
+    lastVisHome: 1
   };
 
   componentDidUpdate(props, state) {
@@ -40,17 +52,10 @@ class HittingAnottation extends React.Component {
     this.setState({ isHomeAtBat });
   }
 
-  // get convertDiceToAnott() {
-  //   return this._convertDiceToAnott;
-  // }
-  // set convertDiceToAnott(value) {
-  //   this._convertDiceToAnott = value;
-  // }
-
   convertDiceToAnott = () => {
     const { dice } = this.props;
-    const { battingVisitor, isHomeAtBat } = this.state;
-    let { lastVisHitter } = this.state;
+    const { battingVisitor, battingHome, isHomeAtBat } = this.state;
+    let { lastVisHitter, lastVisHome } = this.state;
     if (!isHomeAtBat) {
       if (dice < 3) {
         battingVisitor[lastVisHitter].AB += 1;
@@ -63,22 +68,30 @@ class HittingAnottation extends React.Component {
       if (lastVisHitter < 9) lastVisHitter += 1;
       else lastVisHitter = 1;
       this.setState({ lastVisHitter });
+    } else {
+      if (dice < 3) {
+        battingHome[lastVisHome].AB += 1;
+        this.setState({ battingVisitor });
+      } else {
+        battingHome[lastVisHome].AB += 1;
+        battingHome[lastVisHome].H += 1;
+        this.setState({ battingHome });
+      }
+      if (lastVisHome < 9) lastVisHome += 1;
+      else lastVisHome = 1;
+      this.setState({ lastVisHome });
     }
   };
 
   render() {
-    const { teamName, dice, isHomeAtBat } = this.props;
-    const { battingVisitor } = this.state;
+    const { teamName } = this.props;
+    const { battingVisitor, battingHome } = this.state;
+    const battingList = teamName === 'Visitor' ? battingVisitor : battingHome;
     return (
       <React.Fragment>
-        <HitterList teamName={teamName} battingList={battingVisitor} />
-        <style jsx>
-          {`
-            .ok {
-              color: white;
-            }
-          `}
-        </style>
+        <div className="batting">
+          <HitterList teamName={teamName} battingList={battingList} />
+        </div>
       </React.Fragment>
     );
   }
