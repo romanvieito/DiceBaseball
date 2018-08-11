@@ -43,7 +43,7 @@ class Dices extends React.Component {
   enableMessage() {
     setTimeout(() => {
       this.setState({ isBusy: false });
-    }, 500);
+    }, 300);
   }
 
   renderDice() {

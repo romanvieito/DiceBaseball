@@ -9,7 +9,7 @@ class LoadingMessage extends React.Component {
       displayMessage: false
     };
 
-    this.timer = setTimeout(this.enableMessage, 10);
+    this.timer = setTimeout(this.enableMessage, 0);
   }
 
   componentWillUnmount() {
