@@ -336,7 +336,7 @@ class Index extends React.Component {
               <div>
                 <QuestionMarkHelp />
                 <Dices
-                  className="pt-3"
+                  className="pt-1"
                   onClickDices={this.rollDice}
                   valueDice1={dice1}
                   valueDice2={dice2}

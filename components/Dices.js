@@ -53,6 +53,7 @@ class Dices extends React.Component {
     }
     return (
       <>
+        <div>{!isHomeAtBat ? 'Your Turn' : 'CPU Turn'}</div>
         {/* eslint-disable jsx-a11y/no-noninteractive-tabindex */}
         <div
           className={`dices no-focus ${className}`}
@@ -83,7 +84,7 @@ class Dices extends React.Component {
               .dices {
                 display: flex;
                 justify-content: center;
-                height: 65px;
+                height: 43px;
                 cursor: pointer;
               }
               .ml-03 {
