@@ -35,7 +35,7 @@ class HittingAnottation extends React.Component {
       8: { AB: 0, H: 0 },
       9: { AB: 0, H: 0 }
     },
-    lastVisHome: 1
+    lastHomeHitter: 1
   };
 
   componentDidUpdate(props, state) {
@@ -55,7 +55,7 @@ class HittingAnottation extends React.Component {
   convertDiceToAnott = () => {
     const { dice } = this.props;
     const { battingVisitor, battingHome, isHomeAtBat } = this.state;
-    let { lastVisHitter, lastVisHome } = this.state;
+    let { lastVisHitter, lastHomeHitter } = this.state;
     if (!isHomeAtBat) {
       if (dice < 3) {
         battingVisitor[lastVisHitter].AB += 1;
@@ -70,16 +70,16 @@ class HittingAnottation extends React.Component {
       this.setState({ lastVisHitter });
     } else {
       if (dice < 3) {
-        battingHome[lastVisHome].AB += 1;
+        battingHome[lastHomeHitter].AB += 1;
         this.setState({ battingVisitor });
       } else {
-        battingHome[lastVisHome].AB += 1;
-        battingHome[lastVisHome].H += 1;
+        battingHome[lastHomeHitter].AB += 1;
+        battingHome[lastHomeHitter].H += 1;
         this.setState({ battingHome });
       }
-      if (lastVisHome < 9) lastVisHome += 1;
-      else lastVisHome = 1;
-      this.setState({ lastVisHome });
+      if (lastHomeHitter < 9) lastHomeHitter += 1;
+      else lastHomeHitter = 1;
+      this.setState({ lastHomeHitter });
     }
   };
 
