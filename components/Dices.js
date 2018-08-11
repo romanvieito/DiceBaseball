@@ -1,5 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Wave } from 'react-animated-text';
+
 import NormalImg from './Img';
 import DiceImg1 from '../static/1small.gif';
 import DiceImg2 from '../static/2small.gif';
@@ -53,7 +55,7 @@ class Dices extends React.Component {
     }
     return (
       <>
-        <div>{!isHomeAtBat ? 'Your Turn' : 'CPU Turn'}</div>
+        <div>{isHomeAtBat ? <Wave text="CPU turn" /> : 'Your turn'}</div>
         {/* eslint-disable jsx-a11y/no-noninteractive-tabindex */}
         <div
           className={`dices no-focus ${className}`}
