@@ -32,7 +32,6 @@ class Dices extends React.Component {
 
   onClickDicesEvent = () => {
     const { onClickDices } = this.props;
-
     this.setState({ isBusy: true });
     onClickDices();
     this.timer = this.enableMessage();

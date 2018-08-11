@@ -1,5 +1,6 @@
 import React from 'react';
 import HitterList from '../components/HitterList';
+import HitterAnottation from '../components/HittingAnottation';
 import Dices from '../components/Dices';
 import ScoreAndBases from '../components/ScoreAndBases';
 import ScoreTable from '../components/ScoreTable';
@@ -286,6 +287,8 @@ class Index extends React.Component {
     const teamNamesLong = { hc: 'Home Club', vis: 'Visitor' };
     const lastDice =
       historyDices[Object.keys(historyDices)[Object.keys(historyDices).length - 1]] || [];
+    const lastKeyHistoryDice =
+      Object.keys(historyDices)[Object.keys(historyDices).length - 1] || '';
     return (
       <React.Fragment>
         <ErrorBoundary>
@@ -313,7 +316,12 @@ class Index extends React.Component {
             <aside className="aside visitor">
               <div className="flex-colum hide-mobile white-background">
                 <div>
-                  <HitterList teamName="Visitor" />
+                  <HitterAnottation
+                    teamName="Visitor"
+                    lastKeyHistoryDice={lastKeyHistoryDice}
+                    dice={lastDice[2]}
+                    isHomeAtBat={isHomeAtBat}
+                  />
                 </div>
               </div>
               <div className="pt-1">

@@ -3,11 +3,15 @@ import propTypes from 'prop-types';
 
 class HitterList extends React.Component {
   static propTypes = {
-    teamName: propTypes.string
+    teamName: propTypes.string,
+    battingList: propTypes.object
   };
 
+  averageBat = (h, ab) => Math.round((parseInt(h, 10) / parseInt(ab, 10)) * 1000);
+
   render() {
-    const { teamName } = this.props;
+    const { teamName, battingList } = this.props;
+
     return (
       <React.Fragment>
         <div>{teamName}</div>
@@ -23,8 +27,12 @@ class HitterList extends React.Component {
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((v, i) => (
               <tr key={i}>
                 <td>Hitter {v}</td>
-                <td>0-1</td>
-                <td>.000</td>
+                <td>{battingList ? `${battingList[v].H}-${battingList[v].AB}` : ''}</td>
+                <td>
+                  {battingList && battingList[v].H
+                    ? this.averageBat(battingList[v].H, battingList[v].AB)
+                    : '000'}
+                </td>
               </tr>
             ))}
           </tbody>
