@@ -1,11 +1,11 @@
 import React from 'react';
-import HitterList from '../components/HitterList';
 import HitterAnottation from '../components/HittingAnottation';
 import Dices from '../components/Dices';
 import ScoreAndBases from '../components/ScoreAndBases';
 import ScoreTable from '../components/ScoreTable';
 import QuestionMarkHelp from '../components/QuestionMarkHelp';
 import Board from '../components/Board';
+import SideBar from '../components/SideBar';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 import { drawBases } from '../helpers/batting';
@@ -298,6 +298,9 @@ class Index extends React.Component {
               <div>
                 At bat <b>{isHomeAtBat ? teamNamesLong.hc : teamNamesLong.vis}</b>.
               </div>
+              <div className="hide-menu">
+                <SideBar />
+              </div>
             </header>
             <article className="main">
               <div>
@@ -437,6 +440,9 @@ class Index extends React.Component {
               .text-center {
                 text-align: center;
               }
+              .hide-menu {
+                display: none;
+              }
               @media all and (max-width: 390px) {
                 .wrapper aside.aside.host {
                   max-width: 25%;
@@ -464,6 +470,9 @@ class Index extends React.Component {
                 }
                 .wrapper > * {
                   padding: 1px;
+                }
+                .hide-menu {
+                  display: initial;
                 }
               }
               @media all and (min-width: 600px) {
