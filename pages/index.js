@@ -360,17 +360,7 @@ class Index extends React.Component {
                 />
               </div>
             </aside>
-            <footer className="footer">
-              {/* <ul style={{ maxWidth: "10%" }}>
-              {Object.keys(historyDices).map(key => (
-                <HistoryRender
-                  key={key}
-                  index={key}
-                  details={{ numbers: historyDices[key] }}
-                />
-              ))}
-            </ul> */}
-            </footer>
+            <footer className="footer" />
           </div>
 
           <style jsx global>

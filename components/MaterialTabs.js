@@ -5,6 +5,7 @@ import Tab from 'muicss/lib/react/tab';
 import ScoreTable from './ScoreTable';
 import Board from './Board';
 import HitterAnottation from './HittingAnottation';
+import HistoryRender from './HistoryRender';
 
 class MaterialTabs extends React.Component {
   static propTypes = {
@@ -63,7 +64,7 @@ class MaterialTabs extends React.Component {
             </Tabs>
           </Tab>
           <Tab value="pane-3" label="History">
-            Pane-2
+            <HistoryRender data={historyDices} />
           </Tab>
         </Tabs>
 

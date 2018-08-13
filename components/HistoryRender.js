@@ -3,24 +3,27 @@ import PropTypes from 'prop-types';
 
 class HistoryRender extends React.Component {
   static propTypes = {
-    details: PropTypes.shape({
-      numbers: PropTypes.array
-    })
+    data: PropTypes.object
   };
 
   render() {
-    const { details } = this.props;
+    const { data } = this.props;
+    const arrayToRender = Object.keys(data).map(v => data[v]);
     return (
-      <li>
-        <h3>
-          {details.numbers.map((data, index) => (
-            <span key={index}>
-              {data}
-              {index === 1 ? ' - ' : ''}
-            </span>
+      <div>
+        <ul>
+          {arrayToRender.map((v, i) => (
+            <li key={i}>{v[2]}</li>
           ))}
-        </h3>
-      </li>
+        </ul>
+        <style jsx>
+          {`
+            ul {
+              list-style: none;
+            }
+          `}
+        </style>
+      </div>
     );
   }
 }
