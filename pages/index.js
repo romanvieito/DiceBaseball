@@ -302,7 +302,7 @@ class Index extends React.Component {
             <article className="main">
               <div className="hide-desktop">
                 <MaterialTabs
-                  {...{ score, historyDices, outs, innings, gameOver }}
+                  {...{ score, historyDices, outs, innings, gameOver, isHomeAtBat }}
                   teamNames={teamNamesLong}
                 />
               </div>
@@ -317,17 +317,14 @@ class Index extends React.Component {
                 />
               </div>
             </article>
-
             <aside className="aside visitor">
               <div className="flex-colum hide-mobile white-background">
-                <div>
-                  <HitterAnottation
-                    teamName={teamNamesLong.vis}
-                    lastKeyHistoryDice={lastKeyHistoryDice}
-                    dice={lastDice[2]}
-                    isHomeAtBat={isHomeAtBat}
-                  />
-                </div>
+                <HitterAnottation
+                  teamName={teamNamesLong.vis}
+                  lastKeyHistoryDice={lastKeyHistoryDice}
+                  dice={lastDice[2]}
+                  isHomeAtBat={isHomeAtBat}
+                />
               </div>
               <div className="pt-1">
                 <ScoreAndBases
