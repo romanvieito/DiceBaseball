@@ -1,13 +1,13 @@
 import React from 'react';
-import HitterList from '../components/HitterList';
 import HitterAnottation from '../components/HittingAnottation';
 import Dices from '../components/Dices';
 import ScoreAndBases from '../components/ScoreAndBases';
 import ScoreTable from '../components/ScoreTable';
 import QuestionMarkHelp from '../components/QuestionMarkHelp';
 import Board from '../components/Board';
-import ErrorBoundary from '../components/ErrorBoundary';
+import MaterialTabs from '../components/MaterialTabs';
 
+import ErrorBoundary from '../components/ErrorBoundary';
 import { drawBases } from '../helpers/batting';
 import basic from '../helpers/theme';
 
@@ -300,17 +300,22 @@ class Index extends React.Component {
               </div>
             </header>
             <article className="main">
-              <div>
-                <ScoreTable {...score} innings={innings} className="white-background" />
+              <div className="hide-desktop">
+                <MaterialTabs
+                  {...{ score, historyDices, outs, innings, gameOver }}
+                  teamNames={teamNamesLong}
+                />
               </div>
-
-              <Board
-                teamNames={teamNamesLong}
-                gameOver={gameOver}
-                dice={lastDice[2]}
-                outs={outs}
-                whoIsWinning={this.whoIsWinning}
-              />
+              <div className="hide-mobile">
+                <ScoreTable {...score} innings={innings} className="white-background" />
+                <Board
+                  teamNames={teamNamesLong}
+                  gameOver={gameOver}
+                  dice={lastDice[2]}
+                  outs={outs}
+                  whoIsWinning={this.whoIsWinning}
+                />
+              </div>
             </article>
 
             <aside className="aside visitor">
@@ -474,6 +479,12 @@ class Index extends React.Component {
                   display: flex;
                   justify-content: center;
                   flex-direction: column;
+                }
+                .hide-desktop {
+                  display: none;
+                }
+                .main > .hide-mobile {
+                  display: initial;
                 }
               }
               @media all and (min-width: 820px) {

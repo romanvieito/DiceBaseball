@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "hoek": "^5.0.3",
+    "muicss": "^0.9.39",
     "next": "^6.1.1",
     "next-images": "^0.10.5",
     "node-sass": "^4.5.3",
