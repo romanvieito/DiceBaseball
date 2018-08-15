@@ -29,7 +29,7 @@ class MaterialTabs extends React.Component {
       <React.Fragment>
         <link href="//cdn.muicss.com/mui-0.9.39/css/mui.min.css" rel="stylesheet" type="text/css" />
         <Tabs justified>
-          <Tab value="pane-1" label="Main">
+          <Tab value="pane-1" label="Game">
             <ScoreTable {...score} innings={innings} className="white-background" />
             <Board
               teamNames={teamNames}
@@ -63,7 +63,7 @@ class MaterialTabs extends React.Component {
               </Tab>
             </Tabs>
           </Tab>
-          <Tab value="pane-3" label="History">
+          <Tab value="pane-3" label="Play-by-Play">
             <HistoryRender data={historyDices} />
           </Tab>
         </Tabs>

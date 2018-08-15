@@ -41,7 +41,7 @@ class Index extends React.Component {
     }
     if (isHomeAtBat !== prevState.isHomeAtBat) {
       // At the beginning of the inning cpu try to bat
-      this.cpuBatting();
+      this.cpuBatting(2000);
     }
   }
 
@@ -73,7 +73,7 @@ class Index extends React.Component {
   rollDice = () => {
     const dice1 = Math.ceil(Math.random() * 6);
     const dice2 = Math.ceil(Math.random() * 6);
-    const { bases } = this.state;
+    const { bases, isHomeAtBat, innings } = this.state;
     // Update our state object (dice1,dice2)
     this.setState({ dice1 });
     this.setState({ dice2 });
@@ -83,22 +83,23 @@ class Index extends React.Component {
     // Draw Bases
     this.setState({ bases: drawBases(dicenumber, bases) });
     // Adding dices numbers to history
-    this.addNewDiceNumberToHistory(dice1, dice2, dicenumber);
+    this.addNewDiceNumberToHistory(dice1, dice2, dicenumber, isHomeAtBat, innings);
     // Adding Outs and Runs to state
     this.addingOutsAndRuns(dicenumber, bases);
     this.addingHits(dicenumber);
 
-    this.cpuBatting();
+    this.cpuBatting(2000);
   };
 
-  cpuBatting = () => {
+  // Simulate cpu at bat
+  cpuBatting = i => {
     const { isHomeAtBat, gameOver } = this.state;
 
     if (!isHomeAtBat || gameOver) return;
 
     setTimeout(() => {
       this.rollDice();
-    }, 2000);
+    }, i); // TODO Unmount this timeout
   };
 
   // Adding hits to the score
@@ -187,9 +188,15 @@ class Index extends React.Component {
   };
 
   // Keep a history of every turn at bat
-  addNewDiceNumberToHistory = (numberDice1, numberDice2, winnerDice) => {
+  addNewDiceNumberToHistory = (numberDice1, numberDice2, winnerDice, pIsHomeBatting, inning) => {
     const { historyDices } = this.state;
-    historyDices[`dices${Date.now()}`] = [numberDice1, numberDice2, winnerDice];
+    historyDices[`dices${Date.now()}`] = [
+      numberDice1,
+      numberDice2,
+      winnerDice,
+      pIsHomeBatting,
+      inning
+    ];
     this.setState({ historyDices });
   };
 
