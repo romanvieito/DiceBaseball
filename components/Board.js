@@ -17,7 +17,9 @@ class Board extends React.Component {
     /* eslint-disable react/no-unused-prop-types */
     dice: propTypes.number,
     whoIsWinning: propTypes.func,
+    saveLabel: propTypes.func,
     outs: propTypes.number,
+    lastKeyHistoryDice: propTypes.string,
     teamNames: propTypes.object
   };
 
@@ -27,16 +29,24 @@ class Board extends React.Component {
     cachedOuts: 0
   };
 
+  componentDidUpdate(props) {
+    const { lastKeyHistoryDice, saveLabel } = this.props;
+    const { label } = this.state;
+    if (lastKeyHistoryDice !== props.lastKeyHistoryDice) {
+      saveLabel(label);
+    }
+  }
+
   static getDerivedStateFromProps(props, state) {
-    // const outs =
     // If outs render (out or DP)
     if (props.outs !== state.cachedOuts) {
-      if (props.outs - state.cachedOuts === 1 || props.outs - state.cachedOuts === -2)
+      if (props.outs - state.cachedOuts === 1 || props.outs - state.cachedOuts === -2) {
         // If outs
         return {
           cachedOuts: props.outs,
           label: batDictionary(1)
         };
+      }
       // If not out is DP
       return {
         cachedOuts: props.outs,

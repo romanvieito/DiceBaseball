@@ -200,6 +200,13 @@ class Index extends React.Component {
     this.setState({ historyDices });
   };
 
+  // Save label (board) on history dice state
+  addBoardLabelToHistoryDice = label => {
+    const { historyDices } = this.state;
+    historyDices[Object.keys(historyDices)[Object.keys(historyDices).length - 1]][5] = label;
+    this.setState({ historyDices });
+  };
+
   // If game over return true, else false (just call it when new inning start)
   gameOver = () => {
     const { isHomeAtBat } = this.state;
@@ -321,6 +328,8 @@ class Index extends React.Component {
                   dice={lastDice[2]}
                   outs={outs}
                   whoIsWinning={this.whoIsWinning}
+                  saveLabel={this.addBoardLabelToHistoryDice}
+                  lastKeyHistoryDice={lastKeyHistoryDice}
                 />
               </div>
             </article>
