@@ -24,44 +24,23 @@ class Board extends React.Component {
   };
 
   state = {
-    label: 'Roll the dices',
-    /* eslint-disable react/no-unused-state */
-    cachedOuts: 0
+    label: 'Roll the dices'
   };
 
   componentDidUpdate(props) {
-    const { lastKeyHistoryDice, saveLabel } = this.props;
-    const { label } = this.state;
+    const { lastKeyHistoryDice } = this.props;
     if (lastKeyHistoryDice !== props.lastKeyHistoryDice) {
-      saveLabel(label);
+      this.labelRender();
     }
   }
 
-  static getDerivedStateFromProps(props, state) {
-    // If outs render (out or DP)
-    if (props.outs !== state.cachedOuts) {
-      if (props.outs - state.cachedOuts === 1 || props.outs - state.cachedOuts === -2) {
-        // If outs
-        return {
-          cachedOuts: props.outs,
-          label: batDictionary(1)
-        };
-      }
-      // If not out is DP
-      return {
-        cachedOuts: props.outs,
-        label: batDictionary(2)
-      };
-    }
+  labelRender = () => {
+    const { dice, saveLabel } = this.props;
+    const label = batDictionary(dice);
 
-    if (props.dice > 2) {
-      // If batting safe
-      return {
-        label: batDictionary(props.dice)
-      };
-    }
-    return null;
-  }
+    this.setState({ label });
+    saveLabel(label);
+  };
 
   render() {
     const { className, teamNames, gameOver, whoIsWinning } = this.props;

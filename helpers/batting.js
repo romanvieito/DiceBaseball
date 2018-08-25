@@ -61,7 +61,7 @@ export function drawBases(dicenumber, bases) {
 export function batDictionary(diceNum) {
   const batDictionary = {
     1: 'OUT',
-    2: 'DOUBLE PLAY',
+    2: 'OUT',
     3: 'HIT',
     4: 'DOUBLE',
     5: 'TRIPLE',

@@ -15,11 +15,23 @@ class MaterialTabs extends React.Component {
     innings: propTypes.number,
     gameOver: propTypes.bool,
     isHomeAtBat: propTypes.bool,
+    saveLabel: propTypes.func,
+    whoIsWinning: propTypes.func,
     teamNames: propTypes.object
   };
 
   render() {
-    const { score, historyDices, outs, innings, gameOver, teamNames, isHomeAtBat } = this.props;
+    const {
+      score,
+      historyDices,
+      outs,
+      innings,
+      gameOver,
+      teamNames,
+      isHomeAtBat,
+      whoIsWinning,
+      saveLabel
+    } = this.props;
     const lastDice =
       historyDices[Object.keys(historyDices)[Object.keys(historyDices).length - 1]] || [];
     const lastKeyHistoryDice =
@@ -36,7 +48,9 @@ class MaterialTabs extends React.Component {
               gameOver={gameOver}
               dice={lastDice[2]}
               outs={outs}
-              whoIsWinning={this.whoIsWinning}
+              whoIsWinning={() => whoIsWinning}
+              saveLabel={() => saveLabel}
+              lastKeyHistoryDice={lastKeyHistoryDice}
             />
           </Tab>
           <Tab value="pane-2" label="Box Score">

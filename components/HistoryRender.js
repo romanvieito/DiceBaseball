@@ -13,7 +13,7 @@ class HistoryRender extends React.Component {
       <div>
         <ul>
           {arrayToRender.map((v, i) => (
-            <li key={i}>{v[2]}</li>
+            <li key={i}>{v[5]}</li>
           ))}
         </ul>
         <style jsx>
